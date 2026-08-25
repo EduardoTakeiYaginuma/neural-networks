@@ -1,0 +1,341 @@
+{
+  "exercise1": {
+    "separation_ratios_s1": [
+      {
+        "pair": "(0,1)",
+        "distance": 4.242640687119285,
+        "sigma_sum": 3.1999999999999997,
+        "S": 1.3258252147247767
+      },
+      {
+        "pair": "(0,2)",
+        "distance": 6.324555320336759,
+        "sigma_sum": 2.55,
+        "S": 2.4802177726810823
+      },
+      {
+        "pair": "(0,3)",
+        "distance": 13.038404810405298,
+        "sigma_sum": 2.9,
+        "S": 4.496001658760448
+      },
+      {
+        "pair": "(1,2)",
+        "distance": 5.830951894845301,
+        "sigma_sum": 2.4499999999999997,
+        "S": 2.37998036524298
+      },
+      {
+        "pair": "(1,3)",
+        "distance": 10.198039027185569,
+        "sigma_sum": 2.8,
+        "S": 3.6421567954234177
+      },
+      {
+        "pair": "(2,3)",
+        "distance": 7.615773105863909,
+        "sigma_sum": 2.15,
+        "S": 3.5422200492390274
+      }
+    ],
+    "smallest_S_s1": {
+      "pair": "(0,1)",
+      "S": 1.3258252147247767
+    },
+    "smallest_S_s25": 0.5303300858899107,
+    "mixing_rates": {
+      "1.0": 0.05,
+      "1.5": 0.13,
+      "2.0": 0.1925,
+      "2.5": 0.2975
+    }
+  },
+  "exercise2": {
+    "dataset1": {
+      "centre_distance": 3.4055587092236204,
+      "evr": [
+        0.5142546453594478,
+        0.1543871980258048
+      ],
+      "evr_sum": 0.6686418433852526
+    },
+    "dataset2": {
+      "centre_distance": 0.35348490754210427,
+      "evr": [
+        0.21343729949008666,
+        0.2094209521896695
+      ],
+      "evr_sum": 0.42285825167975616,
+      "radius_C": [
+        1.7522100304527957,
+        3.003859671147227,
+        4.279576763913279
+      ],
+      "radius_D": [
+        6.444878263352134,
+        8.01753934580794,
+        9.240258878733178
+      ],
+      "radius_rule_accuracy": 1.0
+    }
+  },
+  "exercise3": {
+    "n_rows": 8693,
+    "n_cols": 14,
+    "target_balance": {
+      "False": 0.4963763948004141,
+      "True": 0.5036236051995858
+    },
+    "missing": {
+      "CryoSleep": {
+        "missing_count": 217,
+        "missing_pct": 2.5
+      },
+      "ShoppingMall": {
+        "missing_count": 208,
+        "missing_pct": 2.39
+      },
+      "VIP": {
+        "missing_count": 203,
+        "missing_pct": 2.34
+      },
+      "HomePlanet": {
+        "missing_count": 201,
+        "missing_pct": 2.31
+      },
+      "Name": {
+        "missing_count": 200,
+        "missing_pct": 2.3
+      },
+      "Cabin": {
+        "missing_count": 199,
+        "missing_pct": 2.29
+      },
+      "VRDeck": {
+        "missing_count": 188,
+        "missing_pct": 2.16
+      },
+      "FoodCourt": {
+        "missing_count": 183,
+        "missing_pct": 2.11
+      },
+      "Spa": {
+        "missing_count": 183,
+        "missing_pct": 2.11
+      },
+      "Destination": {
+        "missing_count": 182,
+        "missing_pct": 2.09
+      },
+      "RoomService": {
+        "missing_count": 181,
+        "missing_pct": 2.08
+      },
+      "Age": {
+        "missing_count": 179,
+        "missing_pct": 2.06
+      },
+      "PassengerId": {
+        "missing_count": 0,
+        "missing_pct": 0.0
+      },
+      "Transported": {
+        "missing_count": 0,
+        "missing_pct": 0.0
+      }
+    },
+    "spend_stats": {
+      "RoomService": {
+        "mean": 224.6876,
+        "median": 0.0,
+        "max": 14327.0,
+        "mean_over_median": Infinity
+      },
+      "FoodCourt": {
+        "mean": 458.0772,
+        "median": 0.0,
+        "max": 29813.0,
+        "mean_over_median": Infinity
+      },
+      "ShoppingMall": {
+        "mean": 173.7292,
+        "median": 0.0,
+        "max": 23492.0,
+        "mean_over_median": Infinity
+      },
+      "Spa": {
+        "mean": 311.1388,
+        "median": 0.0,
+        "max": 22408.0,
+        "mean_over_median": Infinity
+      },
+      "VRDeck": {
+        "mean": 304.8548,
+        "median": 0.0,
+        "max": 24133.0,
+        "mean_over_median": Infinity
+      }
+    },
+    "split": {
+      "train_rows": 6954,
+      "test_rows": 1739,
+      "train_pos": 0.5035950532067874,
+      "test_pos": 0.503737780333525
+    },
+    "foodcourt_train_raw": {
+      "mean": 452.61117647058825,
+      "median": 0.0
+    },
+    "one_hot_columns": [
+      "HomePlanet_Earth",
+      "HomePlanet_Europa",
+      "HomePlanet_Mars",
+      "CryoSleep_False",
+      "CryoSleep_True",
+      "Destination_55 Cancri e",
+      "Destination_PSO J318.5-22",
+      "Destination_TRAPPIST-1e",
+      "VIP_False",
+      "VIP_True"
+    ],
+    "feature_columns": [
+      "Age",
+      "RoomService",
+      "FoodCourt",
+      "ShoppingMall",
+      "Spa",
+      "VRDeck",
+      "TotalSpend",
+      "HomePlanet_Earth",
+      "HomePlanet_Europa",
+      "HomePlanet_Mars",
+      "CryoSleep_False",
+      "CryoSleep_True",
+      "Destination_55 Cancri e",
+      "Destination_PSO J318.5-22",
+      "Destination_TRAPPIST-1e",
+      "VIP_False",
+      "VIP_True"
+    ],
+    "checks": {
+      "nan_train": 0,
+      "nan_test": 0,
+      "shape_train": [
+        6954,
+        17
+      ],
+      "shape_test": [
+        1739,
+        17
+      ],
+      "train_min": -1.0,
+      "train_max": 1.0,
+      "test_min": -1.0,
+      "test_max": 1.1382785668023274
+    },
+    "ranges": {
+      "Age": {
+        "train_min": -1.0,
+        "train_max": 1.0,
+        "test_min": -1.0,
+        "test_max": 0.9494
+      },
+      "RoomService": {
+        "train_min": -1.0,
+        "train_max": 1.0,
+        "test_min": -1.0,
+        "test_max": 0.8819
+      },
+      "FoodCourt": {
+        "train_min": -1.0,
+        "train_max": 1.0,
+        "test_min": -1.0,
+        "test_max": 0.9326
+      },
+      "ShoppingMall": {
+        "train_min": -1.0,
+        "train_max": 1.0,
+        "test_min": -1.0,
+        "test_max": 1.1383
+      },
+      "Spa": {
+        "train_min": -1.0,
+        "train_max": 1.0,
+        "test_min": -1.0,
+        "test_max": 0.9345
+      },
+      "VRDeck": {
+        "train_min": -1.0,
+        "train_max": 1.0,
+        "test_min": -1.0,
+        "test_max": 1.0345
+      },
+      "TotalSpend": {
+        "train_min": -1.0,
+        "train_max": 1.0,
+        "test_min": -1.0,
+        "test_max": 0.9527
+      },
+      "HomePlanet_Earth": {
+        "train_min": 0.0,
+        "train_max": 1.0,
+        "test_min": 0.0,
+        "test_max": 1.0
+      },
+      "HomePlanet_Europa": {
+        "train_min": 0.0,
+        "train_max": 1.0,
+        "test_min": 0.0,
+        "test_max": 1.0
+      },
+      "HomePlanet_Mars": {
+        "train_min": 0.0,
+        "train_max": 1.0,
+        "test_min": 0.0,
+        "test_max": 1.0
+      },
+      "CryoSleep_False": {
+        "train_min": 0.0,
+        "train_max": 1.0,
+        "test_min": 0.0,
+        "test_max": 1.0
+      },
+      "CryoSleep_True": {
+        "train_min": 0.0,
+        "train_max": 1.0,
+        "test_min": 0.0,
+        "test_max": 1.0
+      },
+      "Destination_55 Cancri e": {
+        "train_min": 0.0,
+        "train_max": 1.0,
+        "test_min": 0.0,
+        "test_max": 1.0
+      },
+      "Destination_PSO J318.5-22": {
+        "train_min": 0.0,
+        "train_max": 1.0,
+        "test_min": 0.0,
+        "test_max": 1.0
+      },
+      "Destination_TRAPPIST-1e": {
+        "train_min": 0.0,
+        "train_max": 1.0,
+        "test_min": 0.0,
+        "test_max": 1.0
+      },
+      "VIP_False": {
+        "train_min": 0.0,
+        "train_max": 1.0,
+        "test_min": 0.0,
+        "test_max": 1.0
+      },
+      "VIP_True": {
+        "train_min": 0.0,
+        "train_max": 1.0,
+        "test_min": 0.0,
+        "test_max": 1.0
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+site_name: Neural Networks - Eduardo Takei Yaginuma
+site_author: Eduardo Takei Yaginuma
+site_description: Reports for the Artificial Neural Networks and Deep Learning course at Insper.
+site_url: https://eduardotakeiyaginuma.github.io/neural-networks/
+repo_url: https://github.com/EduardoTakeiYaginuma/neural-networks
+repo_name: EduardoTakeiYaginuma/neural-networks
+
+theme:
+  name: material
+  language: en
+  palette:
+    scheme: default
+    primary: custom
+    accent: custom
+  font:
+    text: Archivo
+    code: IBM Plex Mono
+  features:
+    - content.code.copy
+    - navigation.top
+    - navigation.tracking
+    - navigation.indexes
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.snippets:
+      base_path: ['.', 'docs']
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tilde
+
+plugins:
+  - search
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - 'Exercise 1 - Data':
+      - Report: data/main.md
+      - Code: data/code.md

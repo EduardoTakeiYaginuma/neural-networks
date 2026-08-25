@@ -1,0 +1,114 @@
+/* ---------------------------------------------------------------------------
+   Report theme. Single deliberate light look, matched to the figures:
+   ivory surface, midnight ink, hairline champagne rules, mono for numbers.
+   --------------------------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+:root {
+  --ink:        #0A1729;
+  --ink-soft:   #11294A;
+  --hairline:   #97A3B4;
+  --surface:    #F4F1E8;
+  --surface-2:  #EDE5D3;
+  --accent:     #8A6B33;
+  --accent-fio: #C9A96E;
+
+  --md-default-bg-color:        var(--surface);
+  --md-default-fg-color:        var(--ink);
+  --md-default-fg-color--light: var(--ink-soft);
+  --md-default-fg-color--lighter: var(--hairline);
+  --md-primary-fg-color:        var(--ink);
+  --md-primary-bg-color:        var(--surface);
+  --md-accent-fg-color:         var(--accent);
+  --md-typeset-a-color:         var(--accent);
+  --md-code-bg-color:           #EAE6DA;
+  --md-code-fg-color:           var(--ink);
+}
+
+.md-header, .md-tabs { background-color: var(--ink); color: var(--surface); }
+.md-header__title { font-family: "Archivo", sans-serif; font-weight: 600; letter-spacing: .04em; }
+
+.md-typeset { font-family: "Archivo", sans-serif; font-size: .78rem; line-height: 1.68; }
+
+.md-typeset h1, .md-typeset h2, .md-typeset h3, .md-typeset h4 {
+  font-family: "Spectral", Georgia, serif;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0;
+}
+.md-typeset h1 { font-size: 1.9rem; line-height: 1.2; margin-bottom: .4em; }
+.md-typeset h2 {
+  font-size: 1.4rem; margin-top: 2.2em; padding-bottom: .28em;
+  border-bottom: 1px solid var(--accent-fio);   /* champagne hairline only */
+}
+.md-typeset h3 { font-size: 1.05rem; margin-top: 1.8em; color: var(--ink-soft); }
+.md-typeset h4 { font-size: .86rem; font-family: "Archivo", sans-serif; font-weight: 600;
+                 text-transform: uppercase; letter-spacing: .09em; color: var(--ink-soft); }
+
+/* eyebrow label above a heading */
+.eyebrow {
+  font-family: "Archivo", sans-serif; font-weight: 600; font-size: .62rem;
+  text-transform: uppercase; letter-spacing: .16em; color: var(--accent);
+  margin: 0 0 .2rem 0;
+}
+
+/* measured numbers wear the mono face */
+.md-typeset code, .md-typeset kbd, .md-typeset pre { font-family: "IBM Plex Mono", monospace; }
+.md-typeset code { font-size: .82em; padding: .12em .35em; border-radius: 2px; }
+
+.md-typeset table:not([class]) {
+  font-size: .70rem; border: 1px solid var(--hairline); box-shadow: none;
+}
+.md-typeset table:not([class]) th {
+  background: var(--surface-2); color: var(--ink);
+  font-family: "Archivo", sans-serif; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .06em; font-size: .64rem;
+}
+.md-typeset table:not([class]) td { border-top: 1px solid rgba(151,163,180,.45); }
+.md-typeset table:not([class]) tr:hover { background: rgba(201,169,110,.08); }
+
+.md-typeset figure img, .md-typeset p > img {
+  border: 1px solid rgba(151,163,180,.5);
+  background: var(--surface);
+}
+.md-typeset figure figcaption {
+  font-size: .68rem; color: var(--ink-soft); font-style: italic;
+  font-family: "Spectral", Georgia, serif; max-width: 46rem;
+}
+
+.md-typeset blockquote {
+  border-left: 2px solid var(--accent-fio); color: var(--ink-soft);
+  font-family: "Spectral", Georgia, serif; font-style: italic;
+}
+
+.md-typeset .admonition, .md-typeset details {
+  border: 1px solid rgba(151,163,180,.45) !important;
+  border-left: 2px solid var(--accent-fio) !important;
+  border-radius: 2px; font-size: .74rem; box-shadow: none;
+  background: rgba(237,229,211,.5);
+}
+.md-typeset .admonition-title, .md-typeset summary {
+  background: rgba(201,169,110,.16) !important;
+  border-bottom: 1px solid rgba(151,163,180,.35) !important;
+  font-family: "Archivo", sans-serif; font-weight: 600;
+}
+/* admonition icons in champagne, never the stock Material hues */
+.md-typeset .admonition-title::before, .md-typeset summary::before {
+  background-color: var(--accent) !important;
+}
+
+/* key-number callout row */
+.kpi { display: flex; flex-wrap: wrap; gap: .7rem; margin: 1.1rem 0 1.4rem; }
+.kpi > div {
+  flex: 1 1 8.5rem; padding: .6rem .75rem;
+  background: var(--surface-2); border-top: 2px solid var(--accent-fio);
+}
+.kpi .k {
+  display: block; font-family: "Archivo", sans-serif; font-weight: 600;
+  font-size: .58rem; text-transform: uppercase; letter-spacing: .11em;
+  color: var(--ink-soft); margin-bottom: .25rem;
+}
+.kpi .v { font-family: "IBM Plex Mono", monospace; font-size: 1.02rem; color: var(--ink); }
+
+.md-footer { background: var(--ink); }
+.md-footer-meta { background: #071120; }

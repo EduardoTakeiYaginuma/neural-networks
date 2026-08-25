@@ -1,0 +1,9 @@
+# report pipeline
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+fonttools
+# site
+mkdocs-material
