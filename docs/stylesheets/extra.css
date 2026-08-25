@@ -44,6 +44,10 @@
 .md-typeset h3 { font-size: 1.05rem; margin-top: 1.8em; color: var(--ink-soft); }
 .md-typeset h4 { font-size: .86rem; font-family: "Archivo", sans-serif; font-weight: 600;
                  text-transform: uppercase; letter-spacing: .09em; color: var(--ink-soft); }
+/* math and code inside an uppercased heading must keep their own case */
+.md-typeset h4 .arithmatex, .md-typeset h4 code, .md-typeset h4 mjx-container {
+  text-transform: none; letter-spacing: 0;
+}
 
 /* eyebrow label above a heading */
 .eyebrow {

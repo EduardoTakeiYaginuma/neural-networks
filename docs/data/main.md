@@ -481,8 +481,9 @@ pre-activation deep into the saturated region where \(\tanh' \approx 0\): the un
 \(\pm 1\) for nearly every passenger and its gradient vanishes, so the layer stops learning
 (and gradient descent has to cope with wildly different scales per feature at the same time).
 Even after rescaling to \([-1, 1]\), a *raw* heavy-tailed column would be useless for a
-different reason: 99% of the mass would be squeezed into a sliver next to \(-1\) — a compact
-blob the network cannot resolve — while a handful of big spenders occupy the rest of the range.
+different reason: **83%** of the training passengers would sit inside a band just \(0.03\) wide
+next to \(-1\), and 99% of them below \(-0.47\) — a compact blob the network cannot resolve —
+while the top 1% of spenders stretch across the remaining half of the axis.
 The log compresses the tail *before* the rescaling, spreading the bulk of the passengers across
 the whole interval (visible in Figure 6) and turning ratios into differences, which is the
 scale on which spending actually differs.
@@ -514,10 +515,10 @@ pre-activations in that high-gradient band, and — unlike standardisation — t
   the right mark the tanh-compatible limits −1 and +1.</figcaption>
 </figure>
 
-Before: a spike of ~5000 passengers at zero and a tail that reaches 29 813 with single-digit
-counts — 99% of the axis is empty. After: the zero spike is pinned at exactly \(-1\) and the
-~2400 paying passengers are spread across the rest of the interval, which is what gives the
-first layer something to resolve.
+Before: a spike of **4541** passengers at zero (65% of the training split) and a tail that
+reaches 29 813 with single-digit counts — nearly the whole axis is empty. After: the zero spike
+is pinned at exactly \(-1\) and the **2413** paying passengers are spread across the rest of the
+interval, which is what gives the first layer something to resolve.
 
 **Final checks.**
 
@@ -550,10 +551,10 @@ the rows, the encoding choice adds or removes a column or two, and the scaling c
 where the bulk of the distribution sits. The log changes the *shape* of five of the seven
 numerical features — the ones most likely to be predictive, since spending is what
 distinguishes a passenger in cryosleep from a paying one. Skipping it while keeping Min-Max
-scaling would compress about 99% of the passengers into a band of width ~0.03 next to \(-1\)
-(the ratio of the median-to-maximum spending), so the first layer would see five features that
-are constant for almost everybody and extreme for a few dozen: saturated units, vanishing
-gradients, and a model that effectively learns from `Age`, `CryoSleep` and `HomePlanet` alone.
+scaling would leave 83% of the passengers inside a band 0.03 wide next to \(-1\) and 99% of them
+below \(-0.47\), so the first layer would see five features that are near-constant for almost
+everybody and extreme for a few dozen: saturated units, vanishing gradients, and a model that
+effectively learns from `Age`, `CryoSleep` and `HomePlanet` alone.
 The runner-up is the imputation of the spending columns: `median = 0` and the "no purchase"
 reading agree here, but had I imputed with the *mean* (~450 credits) instead, ~2% of the rows
 would have been handed a spending profile that contradicts their `CryoSleep` status — a small
