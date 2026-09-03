@@ -7,10 +7,10 @@ cloud spreads, in which direction, and how that changes the difficulty of the
 classification problem a network would have to solve.
 
 <div class="kpi">
-  <div><span class="k">Mixing rate, s = 1</span><span class="v">5.00%</span></div>
-  <div><span class="k">Mixing rate, s = 2.5</span><span class="v">29.75%</span></div>
-  <div><span class="k">Smallest S, s = 1</span><span class="v">1.3258</span></div>
-  <div><span class="k">‖c<sub>C</sub> − c<sub>D</sub>‖, Dataset II</span><span class="v">0.3535</span></div>
+  <div><span class="k">Mixing rate, s = 0.5</span><span class="v">0.25%</span></div>
+  <div><span class="k">Mixing rate, s = 4.0</span><span class="v">48.25%</span></div>
+  <div><span class="k">Smallest r<sub>ij</sub>, s = 1</span><span class="v">1.3258</span></div>
+  <div><span class="k">‖c<sub>C</sub> − c<sub>D</sub>‖, Dataset II</span><span class="v">0.2215</span></div>
   <div><span class="k">Final train matrix</span><span class="v">(6954, 17)</span></div>
 </div>
 
@@ -68,17 +68,18 @@ everything else) and is stretched vertically because its standard deviation is
 \((0.5, 2.0)\) — narrow in \(x_1\), wide in \(x_2\). **Class 2** is the only isotropic cloud
 (\(0.9, 0.9\)) and forms a compact blob. **Classes 0 and 1** are both wide in \(x_2\)
 (\(2.5\) and \(1.9\)) and their means are only \(4.24\) apart, so they already touch at the
-original spread — that pair is the whole story of item B.
+original spread — that pair is the whole story of item B. Of the 29 points that item B will
+count as mixed at \(s = 1\), **27 belong to the 0–1 pair**.
 
 ### B — More or less spread out
 
 The same four classes were generated four times, multiplying **every** standard deviation
-by \(s \in \{1.0, 1.5, 2.0, 2.5\}\) and leaving the means untouched: four datasets of four
-classes each, not one dataset with four different classes.
+by \(s \in \{0.5,\; 1.0,\; 2.0,\; 4.0\}\) and leaving the means untouched: four datasets of
+four classes each, not one dataset with four different classes.
 
 <figure markdown="span">
   ![Figure 2 — four subplots, one per spread scale factor, sharing the same axis limits, showing the four classes becoming progressively mixed](figures/fig2_scales.png)
-  <figcaption>Figure 2 — The same four classes at s = 1.0, 1.5, 2.0 and 2.5, on shared axis limits
+  <figcaption>Figure 2 — The same four classes at s = 0.5, 1.0, 2.0 and 4.0, on shared axis limits
   so the comparison is honest. Each subplot title carries its mixing rate.</figcaption>
 </figure>
 
@@ -87,9 +88,9 @@ classes each, not one dataset with four different classes.
 For a pair of classes \((i, j)\) the separation ratio is
 
 \[
-S_{ij} \;=\; \frac{\lVert \mu_i - \mu_j \rVert}{\sigma_i + \sigma_j},
+r_{ij} \;=\; \frac{\lVert \mu_i - \mu_j \rVert}{\bar{\sigma}_i + \bar{\sigma}_j},
 \qquad
-\sigma_i \;=\; \tfrac{1}{2}\left(\sigma_i^{(1)} + \sigma_i^{(2)}\right)
+\bar{\sigma}_k \;=\; \frac{\sigma_{k,x} + \sigma_{k,y}}{2}
 \]
 
 that is, the distance between the two centres divided by the sum of the two spreads,
@@ -102,14 +103,14 @@ High values mean well-separated clouds; low values mean clouds that blend into e
 
 --8<-- "results/tbl_ex1_separation.md"
 
-The **smallest** ratio is \(S_{01} = 1.3258\) — classes **0 and 1**, exactly the pair that
+The **smallest** ratio is \(r_{01} = 1.3258\) — classes **0 and 1**, exactly the pair that
 already looks glued together in Figure 1. Because the means never change and every
 \(\sigma\) is multiplied by \(s\), the ratio is exactly proportional to \(1/s\):
-\(S_{ij}(s) = S_{ij}(1)/s\). So without generating anything new, at \(s = 2.5\) the smallest
+\(r_{ij}(s) = r_{ij}(1)/s\). So without generating anything new, at \(s = 2\) the smallest
 ratio becomes
 
 \[
-S_{01}(2.5) \;=\; \frac{1.3258}{2.5} \;=\; \mathbf{0.5303}.
+r_{01}(2) \;=\; \frac{1.3258}{2} \;=\; \mathbf{0.6629}.
 \]
 
 A ratio below \(1\) means the two centres are closer to each other than the clouds are
@@ -124,28 +125,33 @@ geometric: a `(400, 4)` distance matrix, an `argmin`, and a comparison — nothi
 --8<-- "results/tbl_ex1_mixing.md"
 
 <figure markdown="span">
-  ![Figure 3 — mixing rate as a function of the spread scale factor, rising from 5% at s = 1.0 to 29.75% at s = 2.5](figures/fig3_mixing.png)
+  ![Figure 3 — mixing rate as a function of the spread scale factor, rising from 0.25% at s = 0.5 to 48.25% at s = 4.0](figures/fig3_mixing.png)
   <figcaption>Figure 3 — Mixing rate versus spread scale factor s. Each point is labelled with its
-  value; the growth is close to linear over this range.</figcaption>
+  value; over this grid the growth is close to linear in s.</figcaption>
 </figure>
 
 #### From which scale factor can the clouds no longer be separated by straight lines?
 
-**From \(s = 1.5\) onwards.** The criterion is the smallest separation ratio crossing \(1\):
+**From \(s = 2\) onwards**, on the grid the statement asks for. The criterion is the smallest
+separation ratio crossing \(1\): a ratio below \(1\) means the two centres are closer to each
+other than the clouds are wide, so the two point clouds necessarily interpenetrate and no
+straight line can hold them apart.
 
-| \(s\) | \(S_{01}(s)\) | Mixing rate | Reading |
-|---|---|---|---|
-| 1.0 | 1.3258 | 5.00% | Centres farther apart than the clouds are wide; straight lines still work, with a thin band of errors between classes 0 and 1 |
-| 1.5 | 0.8839 | 13.00% | \(S_{01} < 1\): the clouds interpenetrate — no straight line separates 0 from 1 without a double-digit error rate |
-| 2.0 | 0.6629 | 19.25% | Classes 0, 1 and 2 form one continuous mass in Figure 2 |
-| 2.5 | 0.5303 | 29.75% | Nearly one point in three is closer to a foreign centre |
+| \(s\) | \(r_{01}(s)\) | Pairs with \(r_{ij} < 1\) | Mixing rate | Reading |
+|---|---|---|---|---|
+| 0.5 | 2.6517 | none | 0.25% | Four tight, visibly disjoint blobs; a single point of class 0 falls nearer \(\mu_1\) |
+| 1.0 | 1.3258 | none | 7.25% | Straight lines still work, with a thin band of errors between classes 0 and 1 (27 of the 29 mixed points) |
+| 2.0 | **0.6629** | (0,1) | 19.25% | \(r_{01} < 1\): classes 0 and 1 interpenetrate — **linear separability is lost here** |
+| 4.0 | 0.3315 | (0,1), (0,2), (1,2), (1,3), (2,3) | 48.25% | Five of the six pairs are below 1; almost one point in two is closer to a foreign centre |
 
-At that point the smallest ratio has dropped **below 1** (\(0.8839\) at \(s = 1.5\)), and it
-keeps falling as \(1/s\) — reaching \(\mathbf{0.5303}\) at \(s = 2.5\), i.e. the distance
-between the centres of classes 0 and 1 is only about half the sum of their spreads. Note
-what does *not* change: class 3 stays separable by a single vertical line at every scale
-tested (\(S_{03} = 4.50\) at \(s = 1\), still \(1.80\) at \(s = 2.5\)). Loss of linear
-separability is a *pairwise* property, and here it is driven entirely by the 0–1 pair.
+**What happens to the smallest \(r_{ij}\) at that point?** It drops below 1 for the first
+time: \(r_{01}(2) = 1.3258 / 2 = \mathbf{0.6629}\) — the distance between the centres of
+classes 0 and 1 is now only two thirds of the sum of their spreads. The exact crossing is at
+\(s = r_{01}(1) = 1.3258\), so \(s = 2\) is the first value on the requested grid that is
+past it. Note what does *not* change: class 3 stays separable from class 0 by a single
+vertical line at every scale tested (\(r_{03} = 4.4960\) at \(s = 1\), still \(1.1240\) at
+\(s = 4\) — the only pair that never falls below 1). Loss of linear separability is a
+*pairwise* property, and here it starts with the 0–1 pair and spreads outward.
 
 ### C — Analysis
 
@@ -153,10 +159,13 @@ separability is a *pairwise* property, and here it is driven entirely by the 0�
 
 At the original spread the four clouds are **not** equally hard:
 
-* **classes 0 and 1** overlap in a band around \(x_1 \approx 3\!-\!5\), \(x_2 \approx 4\!-\!7\);
-  this is where the 5% mixing rate (20 of 400 points) comes from;
-* **classes 1 and 2** brush against each other near \((6.5, 2.5)\) — \(S_{12} = 2.38\);
-* **class 3** is isolated (\(S_{03} = 4.50\), \(S_{13} = 3.64\), \(S_{23} = 3.54\)).
+* **classes 0 and 1** overlap in a band around \(x_1 \approx 2\!-\!5\), \(x_2 \approx 4\!-\!7\);
+  this is where almost all of the 7.25% mixing rate (29 of 400 points) comes from — **27 of
+  those 29** are a class-0 point nearer \(\mu_1\) (14) or a class-1 point nearer \(\mu_0\) (13);
+* **classes 1 and 2** brush against each other near \((6.5, 2.5)\) — \(r_{12} = 2.3800\); the
+  remaining 2 mixed points are one class-0 and one class-1 point that land nearer \(\mu_2\);
+* **class 3** is isolated (\(r_{03} = 4.4960\), \(r_{13} = 3.6422\), \(r_{23} = 3.5422\)) and
+  loses no point at all at this scale.
 
 **Could a single linear boundary separate all classes?** No — and for two independent
 reasons. First, a single hyperplane in \(\mathbb{R}^2\) cuts the plane into exactly two
@@ -184,7 +193,7 @@ piecewise-linear partition by the output layer.
 The sketch is the **nearest-centre partition** of the four means: the piecewise-linear
 frontier a network approximates when the clouds have comparable spreads. It is consistent
 with the plotted data — every frontier runs through the empty corridor between two clouds —
-and its error is exactly the 5% mixing rate, because "misclassified by the nearest-centre
+and its error is exactly the 7.25% mixing rate, because "misclassified by the nearest-centre
 rule" and "counted in the mixing rate" are the same event by construction. A real trained
 network would tilt the 0–1 frontier slightly (class 0 is wider in \(x_2\), so the optimal
 boundary bends toward the tighter cloud), but the topology of the sketch would not change.
@@ -194,7 +203,8 @@ boundary bends toward the tighter cloud), but the topology of the sketch would n
 Comparing the sketch with item B: the frontiers in Figure 1b are **fixed** by the means,
 which never move — but the clouds grow through them. As \(s\) increases, the overlap region
 where points of two classes coexist widens, so the fraction of points sitting on the wrong
-side of *any* possible boundary grows: 5.00% → 13.00% → 19.25% → 29.75%. This error is
+side of *any* possible boundary grows: 0.25% → 7.25% → 19.25% → 48.25%. At \(s = 4\) the
+nearest-centre rule is barely better than a coin flip on four classes. This error is
 irreducible: it is a property of the data-generating distributions, not of the model, so no
 architecture, no amount of training and no extra data removes it. A more flexible network
 can only bend the frontier to match the local class posterior; where the two densities
@@ -234,9 +244,10 @@ both more spread out and tilted the other way — the pair is not a simple trans
 Directions are drawn uniformly on the unit sphere of \(\mathbb{R}^5\): sampling
 \(v \sim \mathcal{N}(0, I_5)\) and normalising, \(u = v / \lVert v \rVert\), gives a uniform
 direction because the isotropic Gaussian has no preferred direction. Each point is then
-\(x = r\,u\) with the radius drawn per class — \(r \sim \mathcal{N}(3.0, 0.4)\) for the core
-(class C) and \(r \sim \mathcal{N}(8.0, 0.4)\) for the shell (class D). The two classes share
-the same centre, the origin, and differ **only** in radius.
+\(x = \rho\,u\) with the radius drawn per class — \(\rho \sim \mathcal{N}(2.0, 0.4)\) for the
+core (class C) and \(\rho \sim \mathcal{N}(5.0, 0.4)\) for the shell (class D), reading
+\(0.4\) as the standard deviation. The two classes share the same centre, the origin, and
+differ **only** in radius.
 
 ### C — Visualise and compare
 
@@ -256,7 +267,7 @@ the same centre, the origin, and differ **only** in radius.
 **Explained variance.** For Dataset I the first two components carry
 **66.86%** of the variance (51.43% + 15.44%): the covariance structure is anisotropic —
 correlated features plus a mean shift along all five axes — so a couple of directions
-summarise most of it. For Dataset II they carry only **42.29%** (21.34% + 20.94%), barely
+summarise most of it. For Dataset II they carry only **42.27%** (21.37% + 20.90%), barely
 above the \(2/5 = 40\%\) that pure spherical symmetry would give: the shells have no
 privileged direction, so every direction carries about the same variance and PCA has
 nothing to prioritise. Dropping three of five dimensions therefore throws away three-fifths
@@ -277,25 +288,29 @@ straight line — and part of the radial information is genuinely destroyed by t
 * Dataset I: \(\lVert c_A - c_B \rVert = \mathbf{3.4056}\), against the theoretical
   \(\lVert \mu_B - \mu_A \rVert = 1.5\sqrt{5} = 3.3541\) — the small excess is sampling noise
   on 500 points per class.
-* Dataset II: \(\lVert c_C - c_D \rVert = \mathbf{0.3535}\), against a theoretical value of
+* Dataset II: \(\lVert c_C - c_D \rVert = \mathbf{0.2215}\), against a theoretical value of
   **exactly 0** — both shells are centred on the origin, and what remains is only the
-  residual of averaging 500 random directions (for radius \(r\), the mean of \(n\) uniform
-  directions has expected norm of order \(r\sqrt{5/n} \approx 0.3\!-\!0.8\) here).
+  residual of averaging 500 random directions. For \(n\) uniform directions on the sphere the
+  mean vector satisfies \(\mathbb{E}\lVert \bar{u} \rVert \approx 1/\sqrt{n} = 0.0447\), so the
+  two empirical centres sit about \(2 \times 0.0447 = 0.089\) and \(5 \times 0.0447 = 0.224\)
+  from the origin and their difference has expected norm \(\approx 0.24\). The observed
+  \(0.2215\) is exactly that — sampling noise, not signal.
 
 <figure markdown="span">
-  ![Figure 5 — histograms of the 5D radius for both datasets; in Dataset I the two classes overlap heavily, in Dataset II they form two disjoint bumps around 3 and 8](figures/fig5_radii.png)
+  ![Figure 5 — histograms of the 5D radius for both datasets; in Dataset I the two classes overlap heavily, in Dataset II they form two disjoint bumps around 2 and 5](figures/fig5_radii.png)
   <figcaption>Figure 5 — Histogram of the radius ‖x‖ computed in the original 5D space, both classes
-  overlaid. Left: Dataset I. Right: Dataset II, where the dashed line marks the threshold ‖x‖ = 5.5
+  overlaid. Left: Dataset I. Right: Dataset II, where the dashed line marks the threshold ‖x‖ = 3.35
   that lies in the empty gap between the two classes.</figcaption>
 </figure>
 
 --8<-- "results/tbl_ex2_radii.md"
 
 In Dataset II the two radius ranges are **disjoint**: the largest core radius is
-\(4.2796\) and the smallest shell radius is \(6.4449\), leaving an empty gap of
-\(\approx 2.17\) between the classes. In Dataset I, by contrast, the radius histograms
-overlap heavily — there the radius is the wrong statistic, and the mean shift is the
-right one.
+\(3.2796\) and the smallest shell radius is \(3.4449\), leaving an empty gap of
+\(0.1653\) between the classes — narrow, but a genuine gap, and no threshold inside it
+misclassifies a single one of the 1000 points. In Dataset I, by contrast, the radius
+histograms overlap heavily (class A spans \(0.42\!-\!4.80\), class B \(1.14\!-\!8.93\)) — there the
+radius is the wrong statistic, and the mean shift is the right one.
 
 ### D — Analysis
 
@@ -303,13 +318,13 @@ right one.
 
 The combination is the signature of a **radially separable, linearly inseparable** problem.
 A hyperplane is a rule of the form \(w^\top x + b > 0\). Take any direction \(w\): because
-class D covers *all* directions uniformly at radius \(\approx 8\), it has points with
-\(w^\top x \approx +8\lVert w \rVert\) and points with \(w^\top x \approx -8\lVert w \rVert\);
-class C does the same at radius \(\approx 3\). So both classes always straddle the plane, and
+class D covers *all* directions uniformly at radius \(\approx 5\), it has points with
+\(w^\top x \approx +5\lVert w \rVert\) and points with \(w^\top x \approx -5\lVert w \rVert\);
+class C does the same at radius \(\approx 2\). So both classes always straddle the plane, and
 every hyperplane misclassifies roughly half of one class. The near-zero centre distance says
 the same thing from the other side: the best linear discriminant available to a
 centres-based rule is the direction \(c_D - c_C\), and that vector has almost no length
-(\(0.3535\) against radii of 3 and 8) and a random orientation — it carries no information.
+(\(0.2215\) against radii of 2 and 5) and a random orientation — it carries no information.
 Meanwhile the radius histograms are cleanly separated, so the classes *are* perfectly
 distinguishable — just not by a linear function of \(x\).
 
@@ -332,18 +347,18 @@ A projection in which the classes look mixed therefore proves only one thing: th
 particular high-variance directions do not separate them. It says nothing about the original
 space. My own results make the point twice over:
 
-* Dataset II's projection keeps only **42.29%** of the variance and shows a core inside a
+* Dataset II's projection keeps only **42.27%** of the variance and shows a core inside a
   ring — visually structured, yet **no straight line** in that plane separates the classes;
 * the very same data, measured in 5D with a single number per point (\(\lVert x \rVert\)),
-  is **perfectly** separable, with a gap of \(2.17\) between the classes (Figure 5).
+  is **perfectly** separable, with an empty gap of \(0.1653\) between the classes (Figure 5).
 
 The information was never lost — the linear view simply could not express it as a half-plane.
 
 **A function of the inputs that separates Dataset II.** Take the squared radius and subtract
-a threshold in the empty gap, \(t = 5.5\):
+a threshold in the empty gap, \(t = 3.35\) (the midpoint of \([3.2796,\ 3.4449]\)):
 
 \[
-f(x) \;=\; \lVert x \rVert^2 - t^2 \;=\; \sum_{i=1}^{5} x_i^2 - 30.25,
+f(x) \;=\; \lVert x \rVert^2 - t^2 \;=\; \sum_{i=1}^{5} x_i^2 - 11.2225,
 \qquad
 \hat{y}(x) = \begin{cases}
 \text{class D (shell)} & \text{if } f(x) > 0\\
@@ -352,7 +367,9 @@ f(x) \;=\; \lVert x \rVert^2 - t^2 \;=\; \sum_{i=1}^{5} x_i^2 - 30.25,
 \]
 
 Evaluated on all 1000 points, this rule gets **100.00%** of them right (`radius_rule_accuracy`
-in `results/results.json`). Note what it is: a *linear* classifier applied to the squared features
+in `results/results.json`). The rule is not delicate: the naive threshold \(t = 3.5\), the
+midpoint of the two nominal radii \(2.0\) and \(5.0\) chosen without looking at the data,
+already reaches **99.90%** (999 of 1000). Note what it is: a *linear* classifier applied to the squared features
 \(z_i = x_i^2\). That is exactly the job of a hidden layer — learn a non-linear feature map,
 then separate linearly in the new space.
 

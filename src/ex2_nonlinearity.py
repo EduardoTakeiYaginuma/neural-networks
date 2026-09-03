@@ -31,8 +31,11 @@ SIGMA_B = np.array([[1.5, -0.7, 0.2, 0.0, 0.0],
                     [0.0, 0.0, 0.0, 0.3, 1.5]])
 
 # ---- Dataset II: concentric shells ------------------------------------------
-R_CORE = (3.0, 0.4)     # class C: radius ~ N(3.0, 0.4)
-R_SHELL = (8.0, 0.4)    # class D: radius ~ N(8.0, 0.4)
+# The statement gives rho ~ N(2.0, 0.4) and N(5.0, 0.4); 0.4 is read as the
+# standard deviation (numpy's `scale`), the same convention used in Exercise 1.
+R_CORE = (2.0, 0.4)     # class C: radius ~ N(2.0, 0.4)
+R_SHELL = (5.0, 0.4)    # class D: radius ~ N(5.0, 0.4)
+R_THRESHOLD = 3.35      # threshold inside the empty gap between the two shells
 # --8<-- [end:params]
 
 
@@ -127,8 +130,8 @@ def figure5(hists):
         ax.set_title(name, fontfamily=style.SERIF, fontsize=10.5, loc="left")
         ax.legend(loc="upper right")
         style.mono_ticks(ax)
-    axes[1].axvline(5.5, color=ACCENT, lw=1.0, ls="--")
-    axes[1].annotate("$\\|x\\| = 5.5$", (5.5, axes[1].get_ylim()[1] * 0.92),
+    axes[1].axvline(R_THRESHOLD, color=ACCENT, lw=1.0, ls="--")
+    axes[1].annotate(f"$\\|x\\| = {R_THRESHOLD}$", (R_THRESHOLD, axes[1].get_ylim()[1] * 0.92),
                      xytext=(6, 0), textcoords="offset points",
                      fontsize=8, family=MONO, color=ACCENT)
     fig.suptitle("Figure 5 - Distribution of the radius, computed in 5D",
@@ -157,7 +160,8 @@ def run(rng):
     figure5({"Dataset I - shifted Gaussians": (X1, y1, lab1),
              "Dataset II - concentric shells": (X2, y2, lab2)})
 
-    acc = radius_rule_accuracy(X2, y2, threshold=5.5)
+    acc = radius_rule_accuracy(X2, y2, threshold=R_THRESHOLD)
+    acc_naive = radius_rule_accuracy(X2, y2, threshold=3.5)   # naive midpoint of 2.0 and 5.0
     r2 = radii(X2)
 
     print(f"  Dataset I  : ||cA - cB|| = {d1:.4f}")
@@ -166,7 +170,8 @@ def run(rng):
     print(f"  Dataset II : EVR = {p2.explained_variance_ratio_} -> sum {p2.explained_variance_ratio_.sum():.4%}")
     print(f"  Dataset II radius: C mean {r2[y2==0].mean():.3f} (min {r2[y2==0].min():.3f}, max {r2[y2==0].max():.3f}), "
           f"D mean {r2[y2==1].mean():.3f} (min {r2[y2==1].min():.3f}, max {r2[y2==1].max():.3f})")
-    print(f"  Dataset II : accuracy of sign(||x||^2 - 5.5^2) = {acc:.4%}")
+    print(f"  Dataset II : accuracy of sign(||x||^2 - {R_THRESHOLD}^2) = {acc:.4%}"
+          f"  (naive t = 3.5: {acc_naive:.4%})")
 
     return {
         "dataset1": {
@@ -181,5 +186,7 @@ def run(rng):
             "radius_C": [float(r2[y2 == 0].min()), float(r2[y2 == 0].mean()), float(r2[y2 == 0].max())],
             "radius_D": [float(r2[y2 == 1].min()), float(r2[y2 == 1].mean()), float(r2[y2 == 1].max())],
             "radius_rule_accuracy": acc,
+            "radius_threshold": R_THRESHOLD,
+            "radius_rule_accuracy_t35": acc_naive,
         },
     }

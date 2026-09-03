@@ -21,7 +21,7 @@ STDS = np.array([[0.8, 2.5],       # class 0 - stretched along x2
                  [0.9, 0.9],       # class 2 - isotropic
                  [0.5, 2.0]])      # class 3 - stretched along x2
 N_PER_CLASS = 100
-SCALES = [1.0, 1.5, 2.0, 2.5]      # spread multipliers used in item B
+SCALES = [0.5, 1.0, 2.0, 4.0]      # spread multipliers used in item B
 LABELS = [f"Class {k}" for k in range(4)]
 # --8<-- [end:params]
 
@@ -43,11 +43,12 @@ def make_clouds(rng, scale=1.0):
 
 # --8<-- [start:metrics]
 def separation_ratio(scale=1.0):
-    """S_ij = ||mu_i - mu_j|| / (sigma_i + sigma_j) for the 6 class pairs.
+    """r_ij = ||mu_i - mu_j|| / (sigma_bar_i + sigma_bar_j) for the 6 class pairs.
 
-    sigma_i is the mean of the two per-feature standard deviations of class i
-    (a single spread number per cloud). Since the means are fixed and every
-    sigma is multiplied by `scale`, S_ij is exactly proportional to 1/scale.
+    sigma_bar_k is the mean of the two per-feature standard deviations of class
+    k (a single spread number per cloud), exactly as defined in the statement.
+    Since the means are fixed and every sigma is multiplied by `scale`, r_ij is
+    exactly proportional to 1/scale.
     """
     sigma = (STDS * scale).mean(axis=1)          # one spread per class
     rows = []
@@ -205,19 +206,19 @@ def run(rng):
 
     pairs = separation_ratio(1.0)
     smallest = min(pairs, key=lambda r: r[-1])
-    for i, j, d, sg, S in pairs:
-        print(f"  S_{i}{j} = {S:.4f}   (d = {d:.4f}, sigma_i+sigma_j = {sg:.3f})")
-    print(f"  smallest S at s=1: pair ({smallest[0]},{smallest[1]}) = {smallest[-1]:.4f}"
-          f" -> at s=2.5 it becomes {smallest[-1] / 2.5:.4f}")
+    for i, j, d, sg, r in pairs:
+        print(f"  r_{i}{j} = {r:.4f}   (d = {d:.4f}, sigma_i+sigma_j = {sg:.3f})")
+    print(f"  smallest r at s=1: pair ({smallest[0]},{smallest[1]}) = {smallest[-1]:.4f}"
+          f" -> at s=2 it becomes {smallest[-1] / 2.0:.4f}")
     for s, r in rates.items():
         print(f"  mixing rate at s={s}: {r:.4%}")
 
     return {
         "separation_ratios_s1": [
-            {"pair": f"({i},{j})", "distance": d, "sigma_sum": sg, "S": S}
-            for i, j, d, sg, S in pairs
+            {"pair": f"({i},{j})", "distance": d, "sigma_sum": sg, "r": r}
+            for i, j, d, sg, r in pairs
         ],
-        "smallest_S_s1": {"pair": f"({smallest[0]},{smallest[1]})", "S": smallest[-1]},
-        "smallest_S_s25": smallest[-1] / 2.5,
+        "smallest_r_s1": {"pair": f"({smallest[0]},{smallest[1]})", "r": smallest[-1]},
+        "smallest_r_s2": smallest[-1] / 2.0,
         "mixing_rates": {str(s): r for s, r in rates.items()},
     }

@@ -46,15 +46,16 @@ def main():
     r3 = ex3.run()
 
     # ---------------------------------------------------------------- Exercise 1
-    smallest = r1["smallest_S_s1"]["pair"]
+    smallest = r1["smallest_r_s1"]["pair"]
     write("tbl_ex1_separation.md", md_table(
         [[p["pair"],
           f'{p["distance"]:.4f}',
           f'{p["sigma_sum"]:.4f}',
-          (f'**{p["S"]:.4f}** &larr; smallest' if p["pair"] == smallest else f'{p["S"]:.4f}'),
-          f'{p["S"] / 2.5:.4f}']
+          (f'**{p["r"]:.4f}** &larr; smallest' if p["pair"] == smallest else f'{p["r"]:.4f}'),
+          f'{p["r"] / 2.0:.4f}']
          for p in r1["separation_ratios_s1"]],
-        ["Pair (i, j)", "‖μᵢ − μⱼ‖", "σᵢ + σⱼ (s = 1)", "S at s = 1", "S at s = 2.5"]))
+        ["Pair (i, j)", "‖μᵢ − μⱼ‖",
+         "σ̄ᵢ + σ̄ⱼ (s = 1)", "rᵢⱼ at s = 1", "rᵢⱼ at s = 2"]))
 
     write("tbl_ex1_mixing.md", md_table(
         [[f"{float(s):.1f}", f"{v:.2%}", f"{int(round(v * 400))} of 400"]
@@ -100,13 +101,11 @@ def main():
     # ------------------------------------------------------------ final summary
     ck = r3["checks"]
     mr = r1["mixing_rates"]
-    write("tbl_summary.md", md_table([
-        [1, "Mixing rate at s = 1.0", f'`{mr["1.0"]:.2%}`'],
-        [2, "Mixing rate at s = 1.5", f'`{mr["1.5"]:.2%}`'],
-        [3, "Mixing rate at s = 2.0", f'`{mr["2.0"]:.2%}`'],
-        [4, "Mixing rate at s = 2.5", f'`{mr["2.5"]:.2%}`'],
-        [5, "Smallest S at s = 1, and which pair",
-            f'`{r1["smallest_S_s1"]["S"]:.4f}` — pair {smallest}, i.e. classes 0 and 1'],
+    rows = [[i + 1, f"Mixing rate at s = {float(s_):.1f}", f'`{v:.2%}`']
+            for i, (s_, v) in enumerate(mr.items())]
+    write("tbl_summary.md", md_table(rows + [
+        [5, "Smallest rᵢⱼ at s = 1.0, and which pair",
+            f'`{r1["smallest_r_s1"]["r"]:.4f}` — pair {smallest}, i.e. classes 0 and 1'],
         [6, "Distance between centres — Dataset I", f'`{r2["dataset1"]["centre_distance"]:.4f}`'],
         [7, "Distance between centres — Dataset II", f'`{r2["dataset2"]["centre_distance"]:.4f}`'],
         [8, "Explained variance PC1 + PC2 — Dataset I", f'`{r2["dataset1"]["evr_sum"]:.2%}`'],
@@ -117,7 +116,7 @@ def main():
              f'mean `{r3["foodcourt_train_raw"]["mean"]:.2f}`, median `{r3["foodcourt_train_raw"]["median"]:.2f}`'],
         [12, "Final shape of the training feature matrix",
              f'`{tuple(ck["shape_train"])}`'],
-        [13, "Minimum and maximum after scaling",
+        [13, "Minimum and maximum of the training and test sets after scaling",
              f'train `[{ck["train_min"]:.4f}, {ck["train_max"]:.4f}]`, '
              f'test `[{ck["test_min"]:.4f}, {ck["test_max"]:.4f}]`'],
     ], ["#", "Item", "Value"]))

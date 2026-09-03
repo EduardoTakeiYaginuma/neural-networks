@@ -37,8 +37,12 @@ def describe(df):
     }).sort_values("missing_count", ascending=False)
 
     spend_stats = df[SPEND].agg(["mean", "median", "max"]).T
-    spend_stats["mean_over_median"] = np.where(
-        spend_stats["median"] > 0, spend_stats["mean"] / spend_stats["median"], np.inf)
+    # The median is 0 for every spending column, so the ratio is undefined; keep it
+    # as None rather than inf, which is not valid JSON and breaks strict parsers.
+    spend_stats["mean_over_median"] = [
+        round(mean / median, 4) if median > 0 else None
+        for mean, median in zip(spend_stats["mean"], spend_stats["median"])
+    ]
 
     print("Exercise 3 - Spaceship Titanic")
     print(f"  rows = {n}, columns = {df.shape[1]}")
