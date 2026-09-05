@@ -7,10 +7,10 @@ cloud spreads, in which direction, and how that changes the difficulty of the
 classification problem a network would have to solve.
 
 <div class="kpi">
-  <div><span class="k">Mixing rate, s = 0.5</span><span class="v">0.25%</span></div>
-  <div><span class="k">Mixing rate, s = 4.0</span><span class="v">48.25%</span></div>
-  <div><span class="k">Smallest r<sub>ij</sub>, s = 1</span><span class="v">1.3258</span></div>
-  <div><span class="k">‖c<sub>C</sub> − c<sub>D</sub>‖, Dataset II</span><span class="v">0.2215</span></div>
+  <div><span class="k">Mixing rate, <var>s</var> = 0.5</span><span class="v">0.25%</span></div>
+  <div><span class="k">Mixing rate, <var>s</var> = 4.0</span><span class="v">48.25%</span></div>
+  <div><span class="k">Smallest <var>r<sub>ij</sub></var>, <var>s</var> = 1</span><span class="v">1.3258</span></div>
+  <div><span class="k">‖<var>c<sub>C</sub></var> − <var>c<sub>D</sub></var>‖, Dataset II</span><span class="v">0.2215</span></div>
   <div><span class="k">Final train matrix</span><span class="v">(6954, 17)</span></div>
 </div>
 

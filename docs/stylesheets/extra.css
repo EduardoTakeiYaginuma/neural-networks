@@ -1,17 +1,20 @@
 /* ---------------------------------------------------------------------------
-   Report theme. Single deliberate light look, matched to the figures:
-   ivory surface, midnight ink, hairline champagne rules, mono for numbers.
+   Report theme. Ivory reading surface, midnight structure, champagne only as a
+   hairline or a numeral. Support surfaces are deep navy (the designated card
+   colour) or Brisa at low opacity - never Linho, which is reserved for the
+   Institutos pieces and has no place in an academic report.
    --------------------------------------------------------------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
 
 :root {
-  --ink:        #0A1729;
-  --ink-soft:   #11294A;
-  --hairline:   #97A3B4;
-  --surface:    #F4F1E8;
-  --surface-2:  #EDE5D3;
-  --accent:     #8A6B33;
-  --accent-fio: #C9A96E;
+  --ink:        #0A1729;   /* Meia-noite  - structure, covers, the KPI band */
+  --ink-soft:   #11294A;   /* Marinho-profundo - support surfaces and cards */
+  --hairline:   #97A3B4;   /* Brisa - rules, secondary text, soft fills */
+  --surface:    #F4F1E8;   /* Marfim - the reading surface */
+  --tint:       rgba(151, 163, 180, .14);   /* Brisa at low opacity */
+  --tint-firm:  rgba(151, 163, 180, .22);
+  --accent:     #8A6B33;   /* champagne darkened, for accent text on Marfim */
+  --accent-fio: #C9A96E;   /* champagne proper - fio and numerals only */
 
   --md-default-bg-color:        var(--surface);
   --md-default-fg-color:        var(--ink);
@@ -21,7 +24,7 @@
   --md-primary-bg-color:        var(--surface);
   --md-accent-fg-color:         var(--accent);
   --md-typeset-a-color:         var(--accent);
-  --md-code-bg-color:           #EAE6DA;
+  --md-code-bg-color:           var(--tint);
   --md-code-fg-color:           var(--ink);
 }
 
@@ -63,11 +66,16 @@
 .md-typeset table:not([class]) {
   font-size: .70rem; border: 1px solid var(--hairline); box-shadow: none;
 }
+/* Header row is a support card: Marinho-profundo, Marfim text, champagne fio.
+   Deliberately NOT uppercased - these headers carry variables (r_ij, s, mu)
+   whose case is meaningful, and the navy fill already separates them enough. */
 .md-typeset table:not([class]) th {
-  background: var(--surface-2); color: var(--ink);
+  background: var(--ink-soft); color: var(--surface);
+  border-bottom: 1px solid var(--accent-fio);
   font-family: "Archivo", sans-serif; font-weight: 600;
-  text-transform: uppercase; letter-spacing: .06em; font-size: .64rem;
+  letter-spacing: .03em; font-size: .68rem;
 }
+.md-typeset table:not([class]) tbody tr:nth-child(even) { background: var(--tint); }
 .md-typeset table:not([class]) td { border-top: 1px solid rgba(151,163,180,.45); }
 .md-typeset table:not([class]) tr:hover { background: rgba(201,169,110,.08); }
 
@@ -89,10 +97,10 @@
   border: 1px solid rgba(151,163,180,.45) !important;
   border-left: 2px solid var(--accent-fio) !important;
   border-radius: 2px; font-size: .74rem; box-shadow: none;
-  background: rgba(237,229,211,.5);
+  background: var(--tint);
 }
 .md-typeset .admonition-title, .md-typeset summary {
-  background: rgba(201,169,110,.16) !important;
+  background: var(--tint-firm) !important;
   border-bottom: 1px solid rgba(151,163,180,.35) !important;
   font-family: "Archivo", sans-serif; font-weight: 600;
 }
@@ -101,18 +109,35 @@
   background-color: var(--accent) !important;
 }
 
-/* key-number callout row */
-.kpi { display: flex; flex-wrap: wrap; gap: .7rem; margin: 1.1rem 0 1.4rem; }
-.kpi > div {
-  flex: 1 1 8.5rem; padding: .6rem .75rem;
-  background: var(--surface-2); border-top: 2px solid var(--accent-fio);
+/* Key-number band: one Meia-noite panel, the cover element of the report.
+   Champagne appears only as the fio on top, the dividers, and the numerals. */
+.kpi {
+  display: flex; flex-wrap: wrap; margin: 1.3rem 0 1.7rem;
+  background: var(--ink); border-top: 2px solid var(--accent-fio);
 }
+/* min-width:0 lets a cell shrink past its label, so all five share one row and
+   the labels wrap instead of one cell being pushed onto a row of its own. */
+.kpi > div {
+  flex: 1 1 6rem; min-width: 0; padding: .8rem;
+  border-left: 1px solid rgba(201, 169, 110, .26);
+}
+.kpi > div:first-child { border-left: none; }
 .kpi .k {
   display: block; font-family: "Archivo", sans-serif; font-weight: 600;
-  font-size: .58rem; text-transform: uppercase; letter-spacing: .11em;
-  color: var(--ink-soft); margin-bottom: .25rem;
+  font-size: .55rem; text-transform: uppercase; letter-spacing: .09em;
+  color: var(--hairline); margin-bottom: .3rem;
 }
-.kpi .v { font-family: "IBM Plex Mono", monospace; font-size: 1.02rem; color: var(--ink); }
+/* A label may carry variables. <var> keeps its own case inside the caps label,
+   so the symbol stays the r, s or c the report actually defines. */
+.kpi .k var, .kpi .k sub, .kpi .k sup, .kpi .k code {
+  text-transform: none; letter-spacing: 0;
+}
+.kpi .k var { font-family: "Spectral", Georgia, serif; font-style: italic;
+              font-size: 1.08em; }
+.kpi .v {
+  font-family: "IBM Plex Mono", monospace; font-weight: 500;
+  font-size: .98rem; color: var(--accent-fio); white-space: nowrap;
+}
 
 .md-footer { background: var(--ink); }
 .md-footer-meta { background: #071120; }
