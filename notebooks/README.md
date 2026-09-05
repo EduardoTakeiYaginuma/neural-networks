@@ -1,6 +1,6 @@
 # Notebooks — Activity 1
 
-One notebook per exercise, each self-contained (no import from `src/`) and saved with its
+One notebook per exercise, each self-contained (no import from the report's `code/`) and saved with its
 outputs, so it reads end to end without being run:
 
 | Notebook | Exercise |
@@ -10,8 +10,8 @@ outputs, so it reads end to end without being run:
 | [`ex3_realworld.ipynb`](ex3_realworld.ipynb) | 3 — Preparing real-world data for a `tanh` network |
 
 They are the same code and the same analysis as the published report
-(<https://eduardotakeiyaginuma.github.io/neural-networks/data/main/>), and every number they
-print matches it exactly. The report's figures are still produced by `python src/run_report.py`;
+(<https://eduardotakeiyaginuma.github.io/neural-networks/exercises/data/>), and every number they
+print matches it exactly. The report's figures are still produced by `python docs/exercises/data/code/run_report.py`;
 the notebooks render theirs inline.
 
 ## Running them
@@ -29,7 +29,7 @@ file is not committed to the repository.
 
 ## One seed, two exercises
 
-`src/run_report.py` creates a single `np.random.default_rng(42)` and threads it through
+`docs/exercises/data/code/run_report.py` creates a single `np.random.default_rng(42)` and threads it through
 Exercise 1 and then Exercise 2, so Exercise 2's draws depend on Exercise 1 having run first.
 To reproduce the published numbers, `ex2_nonlinearity.ipynb` replays Exercise 1's 16 draws
 before generating its own data (`REPLAY_EX1 = True` in the third cell). Set it to `False` for a

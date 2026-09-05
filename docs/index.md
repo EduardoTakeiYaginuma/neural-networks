@@ -4,12 +4,12 @@
 
 Reports for the course activities. Every report is generated from the code in the
 [repository](https://github.com/EduardoTakeiYaginuma/neural-networks): a single
-entry point (`python src/run_report.py`) creates one seeded random generator,
+entry point (`python docs/exercises/data/code/run_report.py`) creates one seeded random generator,
 regenerates every figure and recomputes every number quoted in the text.
 
 | Activity | Report | Code |
 |---|---|---|
-| 1 — Data preparation and analysis | [Report](data/main.md) | [Code](data/code.md) |
+| 1 — Data preparation and analysis | [Report](exercises/data/index.md) | [Code](exercises/data/code.md) |
 
 **Author:** Eduardo Takei Yaginuma
 
@@ -18,6 +18,6 @@ regenerates every figure and recomputes every number quoted in the text.
 ```bash
 python3 -m venv env && source env/bin/activate
 pip install -r requirements.txt
-python src/run_report.py      # writes docs/data/figures/*.png and docs/data/results/*
+python docs/exercises/data/code/run_report.py   # rewrites docs/exercises/data/figures/*.png and results/*
 mkdocs serve                  # preview the site at http://127.0.0.1:8000
 ```

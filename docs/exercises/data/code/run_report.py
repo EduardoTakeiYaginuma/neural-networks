@@ -5,7 +5,7 @@ One Generator (np.random.default_rng(42)) is created here and threaded through
 every exercise, so "the same rng throughout the report" is literally true and
 re-running this file reproduces every figure and every number.
 
-    python src/run_report.py
+    python docs/exercises/data/code/run_report.py
 """
 import json
 import sys

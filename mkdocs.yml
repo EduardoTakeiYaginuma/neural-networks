@@ -66,5 +66,5 @@ extra_javascript:
 nav:
   - Home: index.md
   - 'Exercise 1 - Data':
-      - Report: data/main.md
-      - Code: data/code.md
+      - Report: exercises/data/index.md
+      - Code: exercises/data/code.md

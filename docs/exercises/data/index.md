@@ -1,3 +1,8 @@
+---
+exercise: data
+ai_use: "Anthropic's Claude (Claude Code) for code scaffolding, matplotlib styling and text revision; every parameter, computation and conclusion was reviewed, executed and verified by the author."
+---
+
 # Activity 1 — Data Preparation and Analysis for Neural Networks
 
 <p class="eyebrow">Insper · Artificial Neural Networks and Deep Learning · Individual</p>
@@ -28,9 +33,9 @@ classification problem a network would have to solve.
 
 !!! info "Reproducibility"
     One generator instance, `rng = np.random.default_rng(42)`, is created in
-    `src/run_report.py` and threaded through Exercises 1 and 2 in that order;
+    `code/run_report.py` and threaded through Exercises 1 and 2 in that order;
     Exercise 3 uses the same seed (`42`) for the stratified split. Running
-    `python src/run_report.py` rewrites all six figures and every table on this page —
+    `python docs/exercises/data/code/run_report.py` rewrites all six figures and every table on this page —
     the numbers quoted in the text are the ones the script prints, not hand-copied
     values. Libraries: `numpy`, `pandas`, `matplotlib`, `scikit-learn`
     (PCA and preprocessing only — **no model is trained anywhere in this activity**).
@@ -49,12 +54,12 @@ checked for colour-vision-deficiency separation against the page background.
 400 samples in total, 100 per class, each class an axis-aligned Gaussian with the
 parameters given in the statement:
 
-```python title="src/ex1_point_clouds.py — class parameters"
---8<-- "src/ex1_point_clouds.py:params"
+```python title="code/ex1_point_clouds.py — class parameters"
+--8<-- "docs/exercises/data/code/ex1_point_clouds.py:params"
 ```
 
-```python title="src/ex1_point_clouds.py — generating the clouds"
---8<-- "src/ex1_point_clouds.py:generate"
+```python title="code/ex1_point_clouds.py — generating the clouds"
+--8<-- "docs/exercises/data/code/ex1_point_clouds.py:generate"
 ```
 
 <figure markdown="span">
@@ -97,8 +102,8 @@ that is, the distance between the two centres divided by the sum of the two spre
 where each cloud is summarised by the mean of its two per-feature standard deviations.
 High values mean well-separated clouds; low values mean clouds that blend into each other.
 
-```python title="src/ex1_point_clouds.py — separation ratio and mixing rate"
---8<-- "src/ex1_point_clouds.py:metrics"
+```python title="code/ex1_point_clouds.py — separation ratio and mixing rate"
+--8<-- "docs/exercises/data/code/ex1_point_clouds.py:metrics"
 ```
 
 --8<-- "results/tbl_ex1_separation.md"
@@ -220,14 +225,14 @@ rate is a cheap upper-bound-style estimate of the second, computed before any tr
 Two datasets, both in \(\mathbb{R}^5\), both with 500 samples per class — same size, same
 dimensionality, completely different structure.
 
-```python title="src/ex2_nonlinearity.py — parameters of both datasets"
---8<-- "src/ex2_nonlinearity.py:params"
+```python title="code/ex2_nonlinearity.py — parameters of both datasets"
+--8<-- "docs/exercises/data/code/ex2_nonlinearity.py:params"
 ```
 
 ### A — Dataset I: shifted Gaussians
 
-```python title="src/ex2_nonlinearity.py — Dataset I"
---8<-- "src/ex2_nonlinearity.py:dataset1"
+```python title="code/ex2_nonlinearity.py — Dataset I"
+--8<-- "docs/exercises/data/code/ex2_nonlinearity.py:dataset1"
 ```
 
 The two classes differ in **location and in shape**: \(\Sigma_B\) has larger variances
@@ -237,8 +242,8 @@ both more spread out and tilted the other way — the pair is not a simple trans
 
 ### B — Dataset II: concentric shells
 
-```python title="src/ex2_nonlinearity.py — Dataset II"
---8<-- "src/ex2_nonlinearity.py:dataset2"
+```python title="code/ex2_nonlinearity.py — Dataset II"
+--8<-- "docs/exercises/data/code/ex2_nonlinearity.py:dataset2"
 ```
 
 Directions are drawn uniformly on the unit sphere of \(\mathbb{R}^5\): sampling
@@ -251,8 +256,8 @@ differ **only** in radius.
 
 ### C — Visualise and compare
 
-```python title="src/ex2_nonlinearity.py — 5D measures"
---8<-- "src/ex2_nonlinearity.py:measures"
+```python title="code/ex2_nonlinearity.py — 5D measures"
+--8<-- "docs/exercises/data/code/ex2_nonlinearity.py:measures"
 ```
 
 <figure markdown="span">
@@ -383,8 +388,8 @@ The dataset is the Kaggle [Spaceship Titanic](https://www.kaggle.com/competition
 largest around 0 and vanishes beyond roughly \(|z| > 2\) — that single fact drives every
 decision below.
 
-```python title="src/ex3_realworld.py — columns and roles"
---8<-- "src/ex3_realworld.py:columns"
+```python title="code/ex3_realworld.py — columns and roles"
+--8<-- "docs/exercises/data/code/ex3_realworld.py:columns"
 ```
 
 ### A — Get to know the data
@@ -428,8 +433,8 @@ network if fed raw, and the reason for the \(\log(1+x)\) step in item C.
 
 ### B — Split before you transform
 
-```python title="src/ex3_realworld.py — stratified split, before any statistic"
---8<-- "src/ex3_realworld.py:split"
+```python title="code/ex3_realworld.py — stratified split, before any statistic"
+--8<-- "docs/exercises/data/code/ex3_realworld.py:split"
 ```
 
 Result: **6954** training rows and **1739** test rows, with the positive class at **50.36%**
@@ -446,8 +451,8 @@ score trustworthy.
 
 ### C — Preprocess
 
-```python title="src/ex3_realworld.py — the full pipeline, fitted on train only"
---8<-- "src/ex3_realworld.py:preprocess"
+```python title="code/ex3_realworld.py — the full pipeline, fitted on train only"
+--8<-- "docs/exercises/data/code/ex3_realworld.py:preprocess"
 ```
 
 #### Missing data — one strategy per column type

@@ -20,8 +20,12 @@ import matplotlib.pyplot as plt
 import matplotlib.patheffects as pe
 from matplotlib import font_manager as fm
 
-ROOT = Path(__file__).resolve().parents[1]
-FIGDIR = ROOT / "docs" / "data" / "figures"
+# This file lives at docs/exercises/data/code/, so the exercise folder is two
+# levels up and the repository root is the nearest ancestor holding mkdocs.yml.
+HERE     = Path(__file__).resolve()
+EXERCISE = HERE.parents[1]                      # docs/exercises/data
+ROOT     = next(p for p in HERE.parents if (p / "mkdocs.yml").exists())
+FIGDIR   = EXERCISE / "figures"
 FIGDIR.mkdir(parents=True, exist_ok=True)
 
 # ---------------------------------------------------------------- brand colours
