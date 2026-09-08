@@ -12,9 +12,8 @@ theme:
     scheme: default
     primary: custom
     accent: custom
-  font:
-    text: Archivo
-    code: IBM Plex Mono
+  # No Google Fonts request: the stylesheet uses the reader's system faces.
+  font: false
   features:
     - content.code.copy
     - navigation.top

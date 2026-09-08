@@ -1,143 +1,254 @@
 /* ---------------------------------------------------------------------------
-   Report theme. Ivory reading surface, midnight structure, champagne only as a
-   hairline or a numeral. Support surfaces are deep navy (the designated card
-   colour) or Brisa at low opacity - never Linho, which is reserved for the
-   Institutos pieces and has no place in an academic report.
+   Report theme: a plain academic paper. White surface, near-black ink, one
+   restrained blue for links, and rules instead of fills to carry structure.
+
+   Type comes from the reader's own system - no webfont is fetched, so the page
+   paints on the first frame and works offline. Serif for prose (this is a
+   report, read in long passages), sans for structural labels, monospace for
+   every measured number, matching what the figures do.
+
+   Tables follow the booktabs convention of the typesetting they imitate: a
+   rule above, a rule under the header, a rule below, and nothing else. No
+   verticals, no zebra - the column gutters do the separating.
    --------------------------------------------------------------------------- */
-@import url("https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
 
 :root {
-  --ink:        #0A1729;   /* Meia-noite  - structure, covers, the KPI band */
-  --ink-soft:   #11294A;   /* Marinho-profundo - support surfaces and cards */
-  --hairline:   #97A3B4;   /* Brisa - rules, secondary text, soft fills */
-  --surface:    #F4F1E8;   /* Marfim - the reading surface */
-  --tint:       rgba(151, 163, 180, .14);   /* Brisa at low opacity */
-  --tint-firm:  rgba(151, 163, 180, .22);
-  --accent:     #8A6B33;   /* champagne darkened, for accent text on Marfim */
-  --accent-fio: #C9A96E;   /* champagne proper - fio and numerals only */
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia,
+           "Times New Roman", serif;
+  --sans:  system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+           sans-serif;
+  --mono:  ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+           "Liberation Mono", monospace;
 
-  --md-default-bg-color:        var(--surface);
-  --md-default-fg-color:        var(--ink);
-  --md-default-fg-color--light: var(--ink-soft);
-  --md-default-fg-color--lighter: var(--hairline);
-  --md-primary-fg-color:        var(--ink);
-  --md-primary-bg-color:        var(--surface);
-  --md-accent-fg-color:         var(--accent);
-  --md-typeset-a-color:         var(--accent);
-  --md-code-bg-color:           var(--tint);
-  --md-code-fg-color:           var(--ink);
+  --surface:   #ffffff;   /* the page */
+  --ink:       #1a1a1a;   /* body text, strong rules */
+  --ink-soft:  #4a4a4a;   /* secondary text, captions */
+  --ink-faint: #6f6f6f;   /* labels, eyebrows */
+  --rule:      #d4d4d4;   /* hairlines */
+  --rule-soft: #e7e7e7;   /* the quietest divider */
+  --tint:      #f6f6f6;   /* code, admonition and callout fill */
+  --link:      #1a4f8a;   /* the one chromatic note on the page */
+
+  --md-default-bg-color:          var(--surface);
+  --md-default-fg-color:          var(--ink);
+  --md-default-fg-color--light:   var(--ink-soft);
+  --md-default-fg-color--lighter: var(--ink-faint);
+  --md-primary-fg-color:          var(--surface);
+  --md-primary-bg-color:          var(--ink);
+  --md-accent-fg-color:           var(--link);
+  --md-typeset-a-color:           var(--link);
+  --md-code-bg-color:             var(--tint);
+  --md-code-fg-color:             var(--ink);
 }
 
-.md-header, .md-tabs { background-color: var(--ink); color: var(--surface); }
-.md-header__title { font-family: "Archivo", sans-serif; font-weight: 600; letter-spacing: .04em; }
-
-.md-typeset { font-family: "Archivo", sans-serif; font-size: .78rem; line-height: 1.68; }
-
-.md-typeset h1, .md-typeset h2, .md-typeset h3, .md-typeset h4 {
-  font-family: "Spectral", Georgia, serif;
-  font-weight: 400;
+/* Header is paper too, separated by a rule rather than by a block of colour. */
+.md-header {
+  background-color: var(--surface);
   color: var(--ink);
+  border-bottom: 1px solid var(--rule);
+  box-shadow: none;
+}
+.md-header--shadow { box-shadow: none; }
+.md-header__title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: .78rem;
+  letter-spacing: .01em;
+}
+.md-search__form { background-color: var(--tint); }
+.md-search__input { color: var(--ink); }
+.md-search__input::placeholder { color: var(--ink-faint); }
+
+.md-typeset {
+  font-family: var(--serif);
+  font-size: .80rem;
+  line-height: 1.72;
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------------ headings */
+.md-typeset h1, .md-typeset h2, .md-typeset h3 {
+  font-family: var(--serif);
+  color: var(--ink);
+  font-weight: 600;
   letter-spacing: 0;
 }
-.md-typeset h1 { font-size: 1.9rem; line-height: 1.2; margin-bottom: .4em; }
+.md-typeset h1 { font-size: 1.75rem; line-height: 1.25; margin-bottom: .45em; }
 .md-typeset h2 {
-  font-size: 1.4rem; margin-top: 2.2em; padding-bottom: .28em;
-  border-bottom: 1px solid var(--accent-fio);   /* champagne hairline only */
+  font-size: 1.28rem;
+  margin-top: 2.3em;
+  padding-bottom: .3em;
+  border-bottom: 1px solid var(--rule);
 }
-.md-typeset h3 { font-size: 1.05rem; margin-top: 1.8em; color: var(--ink-soft); }
-.md-typeset h4 { font-size: .86rem; font-family: "Archivo", sans-serif; font-weight: 600;
-                 text-transform: uppercase; letter-spacing: .09em; color: var(--ink-soft); }
-/* math and code inside an uppercased heading must keep their own case */
-.md-typeset h4 .arithmatex, .md-typeset h4 code, .md-typeset h4 mjx-container {
-  text-transform: none; letter-spacing: 0;
+.md-typeset h3 { font-size: 1.02rem; margin-top: 1.9em; }
+/* h4 is a structural label, so it takes the sans face and small caps spacing */
+.md-typeset h4 {
+  font-family: var(--sans);
+  font-size: .74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .085em;
+  color: var(--ink-soft);
+  margin-top: 1.7em;
+}
+/* math, code and variables inside an uppercased heading keep their own case */
+.md-typeset h4 .arithmatex,
+.md-typeset h4 code,
+.md-typeset h4 mjx-container {
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 /* eyebrow label above a heading */
 .eyebrow {
-  font-family: "Archivo", sans-serif; font-weight: 600; font-size: .62rem;
-  text-transform: uppercase; letter-spacing: .16em; color: var(--accent);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .13em;
+  color: var(--ink-faint);
   margin: 0 0 .2rem 0;
 }
 
-/* measured numbers wear the mono face */
-.md-typeset code, .md-typeset kbd, .md-typeset pre { font-family: "IBM Plex Mono", monospace; }
-.md-typeset code { font-size: .82em; padding: .12em .35em; border-radius: 2px; }
+/* --------------------------------------------------------------------- code */
+.md-typeset code,
+.md-typeset kbd,
+.md-typeset pre { font-family: var(--mono); }
+.md-typeset code {
+  font-size: .80em;
+  padding: .12em .35em;
+  border-radius: 2px;
+}
+.md-typeset pre > code { font-size: .74em; line-height: 1.6; }
+.md-typeset .highlight { border: 1px solid var(--rule-soft); border-radius: 2px; }
+.md-typeset .highlighttable .filename {
+  font-family: var(--mono);
+  font-size: .68rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+  background: var(--tint);
+  border-bottom: 1px solid var(--rule-soft);
+}
 
+/* ------------------------------------------------------------------- tables */
+/* booktabs: thick rule above, thin under the header, thick below, no verticals */
 .md-typeset table:not([class]) {
-  font-size: .70rem; border: 1px solid var(--hairline); box-shadow: none;
+  font-size: .72rem;
+  border: none;
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  box-shadow: none;
 }
-/* Header row is a support card: Marinho-profundo, Marfim text, champagne fio.
-   Deliberately NOT uppercased - these headers carry variables (r_ij, s, mu)
-   whose case is meaningful, and the navy fill already separates them enough. */
 .md-typeset table:not([class]) th {
-  background: var(--ink-soft); color: var(--surface);
-  border-bottom: 1px solid var(--accent-fio);
-  font-family: "Archivo", sans-serif; font-weight: 600;
-  letter-spacing: .03em; font-size: .68rem;
+  background: transparent;
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: .69rem;
+  letter-spacing: .01em;
 }
-.md-typeset table:not([class]) tbody tr:nth-child(even) { background: var(--tint); }
-.md-typeset table:not([class]) td { border-top: 1px solid rgba(151,163,180,.45); }
-.md-typeset table:not([class]) tr:hover { background: rgba(201,169,110,.08); }
+.md-typeset table:not([class]) td { border-top: none; }
+.md-typeset table:not([class]) tr:hover { background: var(--tint); }
+/* numbers in a table are measured values, so they wear the mono face */
+.md-typeset table:not([class]) td code { background: transparent; padding: 0; }
 
-.md-typeset figure img, .md-typeset p > img {
-  border: 1px solid rgba(151,163,180,.5);
+/* ------------------------------------------------------------------ figures */
+.md-typeset figure img,
+.md-typeset p > img {
+  border: 1px solid var(--rule-soft);
   background: var(--surface);
 }
 .md-typeset figure figcaption {
-  font-size: .68rem; color: var(--ink-soft); font-style: italic;
-  font-family: "Spectral", Georgia, serif; max-width: 46rem;
+  font-family: var(--serif);
+  font-size: .70rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 46rem;
 }
 
 .md-typeset blockquote {
-  border-left: 2px solid var(--accent-fio); color: var(--ink-soft);
-  font-family: "Spectral", Georgia, serif; font-style: italic;
+  border-left: 2px solid var(--rule);
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-style: italic;
 }
 
-.md-typeset .admonition, .md-typeset details {
-  border: 1px solid rgba(151,163,180,.45) !important;
-  border-left: 2px solid var(--accent-fio) !important;
-  border-radius: 2px; font-size: .74rem; box-shadow: none;
+/* -------------------------------------------------------------- admonitions */
+.md-typeset .admonition,
+.md-typeset details {
+  border: 1px solid var(--rule-soft) !important;
+  border-left: 3px solid var(--rule) !important;
+  border-radius: 2px;
+  font-size: .75rem;
+  box-shadow: none;
   background: var(--tint);
 }
-.md-typeset .admonition-title, .md-typeset summary {
-  background: var(--tint-firm) !important;
-  border-bottom: 1px solid rgba(151,163,180,.35) !important;
-  font-family: "Archivo", sans-serif; font-weight: 600;
+.md-typeset .admonition-title,
+.md-typeset summary {
+  background: transparent !important;
+  border-bottom: 1px solid var(--rule-soft) !important;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: .72rem;
+  color: var(--ink);
 }
-/* admonition icons in champagne, never the stock Material hues */
-.md-typeset .admonition-title::before, .md-typeset summary::before {
-  background-color: var(--accent) !important;
-}
+/* one ink-coloured icon set, never the stock Material hues */
+.md-typeset .admonition-title::before,
+.md-typeset summary::before { background-color: var(--ink-soft) !important; }
 
-/* Key-number band: one Meia-noite panel, the cover element of the report.
-   Champagne appears only as the fio on top, the dividers, and the numerals. */
+/* -------------------------------------------------------------- key numbers */
+/* The band of headline figures under the title. Rules, not a filled panel:
+   a thick rule above and a hairline below, the way a table is set. */
 .kpi {
-  display: flex; flex-wrap: wrap; margin: 1.3rem 0 1.7rem;
-  background: var(--ink); border-top: 2px solid var(--accent-fio);
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1.4rem 0 1.8rem;
+  background: var(--surface);
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
 }
 /* min-width:0 lets a cell shrink past its label, so all five share one row and
    the labels wrap instead of one cell being pushed onto a row of its own. */
 .kpi > div {
-  flex: 1 1 6rem; min-width: 0; padding: .8rem;
-  border-left: 1px solid rgba(201, 169, 110, .26);
+  flex: 1 1 6rem;
+  min-width: 0;
+  padding: .7rem .8rem .75rem;
+  border-left: 1px solid var(--rule-soft);
 }
-.kpi > div:first-child { border-left: none; }
+.kpi > div:first-child { border-left: none; padding-left: 0; }
 .kpi .k {
-  display: block; font-family: "Archivo", sans-serif; font-weight: 600;
-  font-size: .55rem; text-transform: uppercase; letter-spacing: .09em;
-  color: var(--hairline); margin-bottom: .3rem;
+  display: block;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: .55rem;
+  text-transform: uppercase;
+  letter-spacing: .085em;
+  color: var(--ink-faint);
+  margin-bottom: .32rem;
 }
 /* A label may carry variables. <var> keeps its own case inside the caps label,
    so the symbol stays the r, s or c the report actually defines. */
-.kpi .k var, .kpi .k sub, .kpi .k sup, .kpi .k code {
-  text-transform: none; letter-spacing: 0;
+.kpi .k var,
+.kpi .k sub,
+.kpi .k sup,
+.kpi .k code { text-transform: none; letter-spacing: 0; }
+.kpi .k var {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.1em;
 }
-.kpi .k var { font-family: "Spectral", Georgia, serif; font-style: italic;
-              font-size: 1.08em; }
 .kpi .v {
-  font-family: "IBM Plex Mono", monospace; font-weight: 500;
-  font-size: .98rem; color: var(--accent-fio); white-space: nowrap;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: .95rem;
+  color: var(--ink);
+  white-space: nowrap;
 }
 
+/* -------------------------------------------------------------------- chrome */
+.md-nav { font-family: var(--sans); font-size: .68rem; }
+.md-nav__title { font-weight: 600; color: var(--ink); }
 .md-footer { background: var(--ink); }
-.md-footer-meta { background: #071120; }
+.md-footer-meta { background: #111111; }
+.md-typeset hr { border-bottom: 1px solid var(--rule); }

@@ -42,8 +42,11 @@ classification problem a network would have to solve.
 
 **Figure conventions.** Every figure has a title, axis labels and a class legend.
 Classes always keep the same colour *and* the same marker shape (circle, square,
-triangle, diamond), so identity never depends on colour alone; the four hues were
-checked for colour-vision-deficiency separation against the page background.
+triangle, diamond), so identity never depends on colour alone. The four hues were
+picked by measurement, not by eye: across normal vision and the three dichromacies,
+the worst of the six colour pairs is \(\Delta E_{00} = 20.6\) (CIEDE2000 on the
+Viénot–Brettel–Mollon simulations), and every hue clears the WCAG non-text contrast
+floor against the white page.
 
 ---
 
@@ -191,7 +194,7 @@ piecewise-linear partition by the output layer.
 <figure markdown="span">
   ![Figure 1b — the same scatter plot with dashed piecewise-linear decision boundaries and faint region fills showing the nearest-centre partition of the plane](figures/fig1b_boundaries.png)
   <figcaption>Figure 1b — Boundaries a trained network could be expected to learn, sketched on
-  Figure 1: the nearest-centre (Voronoi) partition of the four means. Dashed champagne hairlines
+  Figure 1: the nearest-centre (Voronoi) partition of the four means. The dashed hairlines
   are the frontiers; the faint fills show which region belongs to which class.</figcaption>
 </figure>
 
@@ -533,7 +536,7 @@ pre-activations in that high-gradient band, and — unlike standardisation — t
 <figure markdown="span">
   ![Figure 6 — two histograms of FoodCourt on the training set, before preprocessing with a spike at zero and a long thin tail out to 30000, and after log1p plus Min-Max scaling with the mass spread across the interval minus one to one](figures/fig6_foodcourt.png)
   <figcaption>Figure 6 — FoodCourt on the training set, before and after log1p + Min-Max scaling.
-  Both panels use a logarithmic count axis so the tail stays visible; the dashed champagne lines on
+  Both panels use a logarithmic count axis so the tail stays visible; the dashed lines on
   the right mark the tanh-compatible limits −1 and +1.</figcaption>
 </figure>
 

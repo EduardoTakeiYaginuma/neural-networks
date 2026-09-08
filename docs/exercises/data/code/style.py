@@ -1,16 +1,24 @@
 """
 Shared plotting style for the report.
 
-Two jobs:
-  1. Register the report's fonts (Spectral for titles, Archivo for UI text,
-     IBM Plex Mono for every measured number) and set global matplotlib rcParams.
-  2. Expose the categorical palette used for class colours. The palette was
-     validated for colour-vision deficiency: on the report's light surface
-     (#F4F1E8) the four hues clear the all-pairs CVD and normal-vision
-     separation floors, which matters here because every figure is a scatter
-     plot (all pairs of colours end up side by side, not just adjacent ones).
-     Marker shape is used as a redundant encoding, so identity never depends
-     on colour alone.
+A plain academic look: white paper, near-black ink, a recessive hairline frame,
+a serif face for prose and a monospaced one for every measured number. Only
+fonts that ship with matplotlib are used, so the figures render identically on
+a clean checkout with nothing to install and nothing vendored into the repo.
+
+The categorical palette is validated rather than asserted. Every figure here is
+a scatter or an overlaid histogram, so *all six* pairs of class colours end up
+side by side, not just adjacent ones — the floor has to hold pairwise across
+normal vision and the three dichromacies at once. Measured with CIEDE2000 on
+the Vienot-Brettel-Mollon simulations, against a white background:
+
+    worst pair, normal vision   dE 22.7      worst pair, protanopia   dE 20.7
+    worst pair, deuteranopia    dE 23.6      worst pair, tritanopia   dE 20.6
+
+so the palette clears a floor of dE 20 in every vision type. WCAG non-text
+contrast against the page is 5.9 / 6.4 / 7.5 / 3.1, all above the 3.0 floor.
+Marker shape is carried as a redundant channel on top of that, so class
+identity never depends on colour alone.
 """
 from pathlib import Path
 
@@ -18,7 +26,6 @@ import matplotlib
 matplotlib.use("Agg")            # headless: figures are written to PNG, never shown
 import matplotlib.pyplot as plt
 import matplotlib.patheffects as pe
-from matplotlib import font_manager as fm
 
 # This file lives at docs/exercises/data/code/, so the exercise folder is two
 # levels up and the repository root is the nearest ancestor holding mkdocs.yml.
@@ -28,25 +35,28 @@ ROOT     = next(p for p in HERE.parents if (p / "mkdocs.yml").exists())
 FIGDIR   = EXERCISE / "figures"
 FIGDIR.mkdir(parents=True, exist_ok=True)
 
-# ---------------------------------------------------------------- brand colours
-INK        = "#0A1729"   # primary text
-INK_SOFT   = "#11294A"   # secondary text
-HAIRLINE   = "#97A3B4"   # grid lines, spines
-SURFACE    = "#F4F1E8"   # figure/axes background
-ACCENT     = "#8A6B33"   # thin accent strokes (sketched boundaries, reference lines)
+# ------------------------------------------------------------------- neutrals
+INK        = "#1a1a1a"   # primary text
+INK_SOFT   = "#4a4a4a"   # secondary text
+HAIRLINE   = "#c8c8c8"   # grid lines, spines
+SURFACE    = "#ffffff"   # figure/axes background
+ACCENT     = "#1a1a1a"   # annotation strokes (sketched boundaries, reference lines);
+                         # near-black and always dashed, so an annotation never
+                         # reads as one more data series
 
 # Categorical palette (fixed order, never cycled) + redundant marker shapes.
-SERIES  = ["#2a78d6", "#eb6834", "#1baf7a", "#4a3aa7"]
+# See the module docstring for the measured CVD and contrast figures.
+SERIES  = ["#2166AC",    # class 0 - blue
+           "#8C510A",    # class 1 - ochre
+           "#555555",    # class 2 - graphite
+           "#CC79A7"]    # class 3 - mauve
 MARKERS = ["o", "s", "^", "D"]
 
 # ------------------------------------------------------------------------ fonts
-for ttf in sorted((ROOT / "assets" / "fonts").glob("*.ttf")):
-    fm.fontManager.addfont(str(ttf))
-
-_installed = {f.name for f in fm.fontManager.ttflist}
-SERIF = "Spectral" if "Spectral" in _installed else "DejaVu Serif"
-SANS  = "Archivo"  if "Archivo"  in _installed else "DejaVu Sans"
-MONO  = "IBM Plex Mono" if "IBM Plex Mono" in _installed else "DejaVu Sans Mono"
+# matplotlib ships all three, so there is nothing to download or vendor.
+SERIF = "DejaVu Serif"
+SANS  = "DejaVu Sans"
+MONO  = "DejaVu Sans Mono"
 
 plt.rcParams.update({
     "figure.facecolor":  SURFACE,
@@ -56,7 +66,7 @@ plt.rcParams.update({
     "savefig.dpi":       140,
     "savefig.bbox":      "tight",
 
-    "font.family":       SANS,
+    "font.family":       SERIF,
     "font.size":         9,
     "axes.titlesize":    11,
     "axes.labelsize":    9.5,
@@ -92,7 +102,7 @@ plt.rcParams.update({
 
 
 def title(ax, text, sub=None):
-    """Editorial title in Spectral, with an optional deck line underneath.
+    """Serif title, with an optional deck line underneath.
 
     Placed with ax.text (not set_title) so title and subtitle never collide.
     """

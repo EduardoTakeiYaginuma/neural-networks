@@ -4,6 +4,5 @@ pandas
 matplotlib
 seaborn
 scikit-learn
-fonttools
 # site (pinned: MkDocs 2.0 is backward-incompatible)
 mkdocs-material==9.7.7
