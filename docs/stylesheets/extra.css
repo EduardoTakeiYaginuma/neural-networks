@@ -12,7 +12,14 @@
    verticals, no zebra - the column gutters do the separating.
    --------------------------------------------------------------------------- */
 
-:root {
+/* Material puts data-md-color-scheme on <body>, and its own palette block is
+   `:root,[data-md-color-scheme=default]`. Overriding only :root (= <html>) loses
+   every variable inside <body>, because the closer declaration wins there — in
+   particular --md-typeset-a-color, which Material resets to --md-primary-fg-color
+   (white here), painting active nav links and prose links white on white.
+   Declaring on both selectors keeps these overrides in force inside the page. */
+:root,
+[data-md-color-scheme="default"] {
   --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia,
            "Times New Roman", serif;
   --sans:  system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,

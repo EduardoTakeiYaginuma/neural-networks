@@ -3,6 +3,8 @@ numpy
 pandas
 matplotlib
 seaborn
+# Activity 1 only (PCA, split, imputation, encoding). Activity 2 does not import
+# it: the perceptron is hand-written on NumPy alone.
 scikit-learn
 # site (pinned: MkDocs 2.0 is backward-incompatible)
 mkdocs-material==9.7.7

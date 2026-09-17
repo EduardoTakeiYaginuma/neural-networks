@@ -31,6 +31,43 @@ is the purpose of the pocket algorithm.
     used; the activation, prediction, update rule and loop are implemented from
     scratch.
 
+## Implementation approach
+
+The model lives in one file, `code/perceptron.py`, as a `Perceptron` class with
+`step`, `predict`, `accuracy` and `fit`. Exercise 2 imports that same class and
+calls the same `fit` with different data; nothing in the model is specialised
+per exercise, and the pocket bookkeeping is part of the single loop rather than
+a second training routine. `code/ex1_separable.py` and `code/ex2_overlapping.py`
+hold only data generation, figures and the per-exercise diagnostics, and
+`code/run_report.py` is the entry point that owns the one generator and writes
+every figure, the summary table and `results.json`. Every number quoted below is
+read back from that file, so the prose cannot drift from the run.
+
+Four things were less obvious than they looked:
+
+**The error term, not the label.** With \(0/1\) labels the update has to be
+driven by \(y-\hat y\). The textbook \(\eta y\mathbf{x}\) form silently does
+nothing on class 0 — it cannot correct a false positive — so a first version
+that used it converged on nothing. This is spelled out under Exercise 1B.
+
+**When to inspect the pocket.** Checking best-so-far accuracy only at epoch
+boundaries is the natural place to put it, and it is wrong here: the useful
+iterates in Exercise 2 are short-lived and never survive to the end of a pass.
+The best end-of-epoch accuracy in that run is only **51.15%**, against the
+**71.10%** reached by evaluating after every mistake-driven update. The pocket
+is therefore checked per update.
+
+**Figure 5 could not be one plot.** The final iterate misclassifies 997 points
+and the pocket 578, drawn from the same cloud; stacked on one axes the two error
+layers were unreadable. The figure keeps the panel the statement asks for — both
+boundaries over the data — and adds one panel per error set beside it.
+
+**Stating the ceiling instead of asserting it.** The statement says the best
+line scores "about 73%". Rather than quote that, the report computes the
+Bayes-optimal linear accuracy in closed form and sweeps directions and
+thresholds on the realized sample. The sweep needs a fine angular grid: a
+721-direction grid reports 71.90% and a converged one reports 71.95%.
+
 ---
 
 ## Exercise 1 — Separable data
@@ -244,10 +281,11 @@ priors, the optimal linear rule cuts perpendicular to the line joining the
 means, where the classes project to normals separated by
 \(d=\lVert\boldsymbol\mu_1-\boldsymbol\mu_0\rVert=\sqrt2\) with
 \(\sigma=\sqrt{1.5}\); its accuracy is
-\(\Phi\!\left(d/2\sigma\right)=\mathbf{71.81\%}\). Sweeping all directions and
-all thresholds on the realized sample gives a best attainable **71.90%**. The
-pocket therefore sits **0.80 percentage points** below the best line that
-exists, while the last iterate sits more than 21 points below it.
+\(\Phi\!\left(d/2\sigma\right)=\mathbf{71.81\%}\). Sweeping 72,001 directions
+and every threshold on the realized sample gives a best attainable **71.95%**;
+a ten-times finer sweep returns the same value. The pocket therefore sits
+**0.85 percentage points** below the best line that exists, while the last
+iterate sits more than 21 points below it.
 
 #### Figure 3 versus Figure 6
 

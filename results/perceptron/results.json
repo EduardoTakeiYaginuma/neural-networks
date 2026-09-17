@@ -581,7 +581,7 @@
     },
     "diagnostics": {
       "bayes_linear_accuracy": 0.7181485691746134,
-      "best_linear_accuracy": 0.719,
+      "best_linear_accuracy": 0.7195,
       "interleaved_final_accuracy": 0.684,
       "interleaved_pocket_accuracy": 0.719,
       "interleaved_total_updates": 98296,
