@@ -21,7 +21,7 @@ import ex1_point_clouds as ex1
 import ex2_nonlinearity as ex2
 import ex3_realworld as ex3
 
-RESULTS = style.ROOT / "results"
+RESULTS = style.ROOT / "results" / "data"
 RESULTS.mkdir(parents=True, exist_ok=True)
 
 
@@ -35,7 +35,7 @@ def md_table(rows, header):
 
 def write(name, text):
     (RESULTS / name).write_text(text)
-    print(f"  table  -> results/{name}")
+    print(f"  table  -> results/data/{name}")
 
 
 def main():
@@ -123,7 +123,7 @@ def main():
 
     payload = {"exercise1": r1, "exercise2": r2, "exercise3": r3}
     (RESULTS / "results.json").write_text(json.dumps(payload, indent=2))
-    print("  json   -> results/results.json")
+    print("  json   -> results/data/results.json")
 
 
 if __name__ == "__main__":

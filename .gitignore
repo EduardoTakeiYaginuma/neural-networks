@@ -2,5 +2,6 @@ env/
 __pycache__/
 .DS_Store
 site/
-# Kaggle competition data is not redistributed - see README for the download step
-/data/
+.ipynb_checkpoints/
+# Third-party datasets are not redistributed - see README for the download step
+/datasets/

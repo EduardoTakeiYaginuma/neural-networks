@@ -109,7 +109,7 @@ High values mean well-separated clouds; low values mean clouds that blend into e
 --8<-- "docs/exercises/data/code/ex1_point_clouds.py:metrics"
 ```
 
---8<-- "results/tbl_ex1_separation.md"
+--8<-- "results/data/tbl_ex1_separation.md"
 
 The **smallest** ratio is \(r_{01} = 1.3258\) — classes **0 and 1**, exactly the pair that
 already looks glued together in Figure 1. Because the means never change and every
@@ -130,7 +130,7 @@ The mixing rate is the fraction of points whose **nearest class centre** (among 
 generating means, Euclidean distance) is not the centre of their own class. It is purely
 geometric: a `(400, 4)` distance matrix, an `argmin`, and a comparison — nothing is trained.
 
---8<-- "results/tbl_ex1_mixing.md"
+--8<-- "results/data/tbl_ex1_mixing.md"
 
 <figure markdown="span">
   ![Figure 3 — mixing rate as a function of the spread scale factor, rising from 0.25% at s = 0.5 to 48.25% at s = 4.0](figures/fig3_mixing.png)
@@ -270,7 +270,7 @@ differ **only** in radius.
   and class D a surrounding ring around the same centre.</figcaption>
 </figure>
 
---8<-- "results/tbl_ex2_measures.md"
+--8<-- "results/data/tbl_ex2_measures.md"
 
 **Explained variance.** For Dataset I the first two components carry
 **66.86%** of the variance (51.43% + 15.44%): the covariance structure is anisotropic —
@@ -311,7 +311,7 @@ straight line — and part of the radial information is genuinely destroyed by t
   that lies in the empty gap between the two classes.</figcaption>
 </figure>
 
---8<-- "results/tbl_ex2_radii.md"
+--8<-- "results/data/tbl_ex2_radii.md"
 
 In Dataset II the two radius ranges are **disjoint**: the largest core radius is
 \(3.2796\) and the smallest shell radius is \(3.4449\), leaving an empty gap of
@@ -375,7 +375,7 @@ f(x) \;=\; \lVert x \rVert^2 - t^2 \;=\; \sum_{i=1}^{5} x_i^2 - 11.2225,
 \]
 
 Evaluated on all 1000 points, this rule gets **100.00%** of them right (`radius_rule_accuracy`
-in `results/results.json`). The rule is not delicate: the naive threshold \(t = 3.5\), the
+in `results/data/results.json`). The rule is not delicate: the naive threshold \(t = 3.5\), the
 midpoint of the two nominal radii \(2.0\) and \(5.0\) chosen without looking at the data,
 already reaches **99.90%** (999 of 1000). Note what it is: a *linear* classifier applied to the squared features
 \(z_i = x_i^2\). That is exactly the job of a hidden layer — learn a non-linear feature map,
@@ -419,11 +419,11 @@ resampling is needed.
 **Missing values** — 2324 missing cells in total, spread thinly across almost every column
 (no column above 2.5%, and the target has none):
 
---8<-- "results/tbl_ex3_missing.md"
+--8<-- "results/data/tbl_ex3_missing.md"
 
 **Spending columns.**
 
---8<-- "results/tbl_ex3_spending.md"
+--8<-- "results/data/tbl_ex3_spending.md"
 
 **Mean versus median.** For all five spending columns the **median is 0** while the mean sits
 between 174 and 458 — and the maximum reaches **29 813** (`FoodCourt`). A median of zero says
@@ -558,7 +558,7 @@ interval, which is what gives the first layer something to resolve.
 
 Per-feature ranges:
 
---8<-- "results/tbl_ex3_ranges.md"
+--8<-- "results/data/tbl_ex3_ranges.md"
 
 !!! note "Why the test maximum is 1.1383 and why that is correct"
     Two test features slightly exceed \(+1\): `ShoppingMall` (1.1383) and `VRDeck` (1.0345).
@@ -589,7 +589,7 @@ number of rows, but systematically wrong ones.
 
 ## Results summary
 
---8<-- "results/tbl_summary.md"
+--8<-- "results/data/tbl_summary.md"
 
 !!! quote "Tools and AI use"
     Code and report drafted with the assistance of Anthropic's Claude (Claude Code), used for

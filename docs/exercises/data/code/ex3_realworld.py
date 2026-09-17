@@ -15,7 +15,7 @@ from style import SERIES, ACCENT, INK, INK_SOFT, MONO
 import matplotlib.pyplot as plt
 
 # --8<-- [start:columns]
-CSV = style.ROOT / "data" / "train.csv"
+CSV = style.ROOT / "datasets" / "spaceship-titanic" / "train.csv"
 
 TARGET = "Transported"
 SPEND = ["RoomService", "FoodCourt", "ShoppingMall", "Spa", "VRDeck"]

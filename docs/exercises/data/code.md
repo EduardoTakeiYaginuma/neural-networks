@@ -2,7 +2,7 @@
 
 Five files. `run_report.py` is the entry point: it creates the single
 `np.random.default_rng(42)` used by Exercises 1 and 2, runs the three exercises in order,
-writes the six figures to `docs/exercises/data/figures/` and every table and raw number to `results/`.
+writes the six figures to `docs/exercises/data/figures/` and every table and raw number to `results/data/`.
 
 ```bash
 python3 -m venv env && source env/bin/activate
@@ -43,4 +43,4 @@ python docs/exercises/data/code/run_report.py
 ## Raw results
 
 Every number quoted in the report is also dumped to
-[`results/results.json`](https://github.com/EduardoTakeiYaginuma/neural-networks/blob/main/results/results.json).
+[`results/data/results.json`](https://github.com/EduardoTakeiYaginuma/neural-networks/blob/main/results/data/results.json).

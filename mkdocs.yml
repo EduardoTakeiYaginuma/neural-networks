@@ -62,8 +62,14 @@ extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
+# One section per activity; the folder slug under docs/exercises/ is the contract
+# (data, perceptron, mlp, vae). Add the next activity as another block here.
 nav:
   - Home: index.md
-  - 'Exercise 1 - Data':
-      - Report: exercises/data/index.md
-      - Code: exercises/data/code.md
+  - Exercises:
+      - '1 - Data':
+          - Report: exercises/data/index.md
+          - Code: exercises/data/code.md
+      - '2 - Perceptron':
+          - Report: exercises/perceptron/index.md
+          - Code: exercises/perceptron/code.md
