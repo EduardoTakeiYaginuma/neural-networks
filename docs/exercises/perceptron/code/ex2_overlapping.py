@@ -47,7 +47,9 @@ def best_linear_accuracy(X, y, n_angles=721):
     n = len(y)
     best = 0.0
     for theta in np.linspace(0.0, np.pi, n_angles):
-        scores = X @ np.array([np.cos(theta), np.sin(theta)])
+        # Written componentwise rather than as a matmul: some BLAS builds raise
+        # spurious floating-point warnings on this shape inside a notebook.
+        scores = X[:, 0] * np.cos(theta) + X[:, 1] * np.sin(theta)
         order = np.argsort(scores, kind="stable")
         labels = y[order]
         # Predicting 1 above the cut: correct = class-1 above + class-0 below.
