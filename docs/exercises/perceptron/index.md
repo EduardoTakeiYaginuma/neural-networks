@@ -41,7 +41,9 @@ a second training routine. `code/ex1_separable.py` and `code/ex2_overlapping.py`
 hold only data generation, figures and the per-exercise diagnostics, and
 `code/run_report.py` is the entry point that owns the one generator and writes
 every figure, the summary table and `results.json`. Every number quoted below is
-read back from that file, so the prose cannot drift from the run.
+read back from that file, so the prose cannot drift from the run. The model
+and both data generators are reproduced inline below, straight from those files;
+the [code page](code.md) carries all five in full.
 
 Four things were less obvious than they looked:
 
@@ -86,6 +88,10 @@ and class 1 has the same covariance and mean \([5,5]^T\). The points remain in
 generation order (class 0 followed by class 1); no shuffling is introduced by
 the training loop.
 
+```python title="code/ex1_separable.py — data generation"
+--8<-- "docs/exercises/perceptron/code/ex1_separable.py:9:17"
+```
+
 <figure markdown="span">
   ![Figure 1 — scatter plot of 1,000 observations from each of two well-separated Gaussian classes](figures/fig1_separable_scatter.png)
   <figcaption>Figure 1 — The 2,000 observations in the separable dataset. Colour and marker shape both encode class.</figcaption>
@@ -118,8 +124,14 @@ never correct a class-0 mistake here.
 The initial state is \(\mathbf{w}_0=[0.002532,\,0.008952]\), drawn from
 \(\mathcal{N}(0,0.01^2)\), and \(b_0=0\). Training uses \(\eta=0.01\), records
 full-dataset accuracy after every epoch, and stops after an epoch with zero
-updates or after 100 epochs. The complete shared implementation is shown on the
-[code page](code.md).
+updates or after 100 epochs.
+
+The complete model follows. Exercise 2 imports this same class and calls this
+same `fit`; nothing below is specialised per exercise.
+
+```python title="code/perceptron.py — the hand-written model"
+--8<-- "docs/exercises/perceptron/code/perceptron.py"
+```
 
 ### C — Train and measure
 
@@ -210,6 +222,10 @@ Again there are 1,000 points per class, but now class means are \([3,3]^T\) and
 \(\begin{bmatrix}1.5&0\\0&1.5\end{bmatrix}\). The centroid of the realized
 dataset is \([3.526414,3.473506]^T\). Close means and larger variance make the
 two generating distributions overlap, so no line can classify every sample.
+
+```python title="code/ex2_overlapping.py — data generation"
+--8<-- "docs/exercises/perceptron/code/ex2_overlapping.py:12:20"
+```
 
 <figure markdown="span">
   ![Figure 4 — scatter plot of two heavily overlapping Gaussian classes](figures/fig4_overlap_scatter.png)
