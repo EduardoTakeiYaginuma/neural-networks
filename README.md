@@ -10,6 +10,7 @@ part, everything else is namespaced by the activity slug.
 |---|---|---|---|
 | 1 | Data preparation and analysis | `data` | [`docs/exercises/data/index.md`](docs/exercises/data/index.md) — published at [/exercises/data/](https://eduardotakeiyaginuma.github.io/neural-networks/exercises/data/) |
 | 2 | Perceptron | `perceptron` | [`docs/exercises/perceptron/index.md`](docs/exercises/perceptron/index.md) — published at [/exercises/perceptron/](https://eduardotakeiyaginuma.github.io/neural-networks/exercises/perceptron/) |
+| 3 | Multi-Layer Perceptron | `mlp` | [`docs/exercises/mlp/index.md`](docs/exercises/mlp/index.md) — published at [/exercises/mlp/](https://eduardotakeiyaginuma.github.io/neural-networks/exercises/mlp/) |
 
 ## Layout
 
@@ -64,6 +65,7 @@ Third-party datasets are **not** redistributed here. Activity 1 uses the Kaggle
 ```bash
 python docs/exercises/data/code/run_report.py   # regenerates docs/exercises/data/figures/* and results/data/*
 python docs/exercises/perceptron/code/run_report.py  # regenerates Activity 2 figures and results
+python docs/exercises/mlp/code/run_report.py         # regenerates Activity 3 figures and results
 ```
 
 Pushing to `main` builds and publishes the site through GitHub Actions

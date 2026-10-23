@@ -11,6 +11,7 @@ point regenerates every figure and recomputes every number quoted in the text.
 |---|---|---|---|
 | 1 | Data preparation and analysis | [Report](exercises/data/index.md) | [Code](exercises/data/code.md) |
 | 2 | Perceptron | [Report](exercises/perceptron/index.md) | [Code](exercises/perceptron/code.md) |
+| 3 | Multi-Layer Perceptron | [Report](exercises/mlp/index.md) | [Code](exercises/mlp/code.md) |
 
 **Author:** Eduardo Takei Yaginuma
 
@@ -27,4 +28,5 @@ Each activity has its own entry point:
 ```bash
 python docs/exercises/data/code/run_report.py   # rewrites docs/exercises/data/figures/*.png and results/data/*
 python docs/exercises/perceptron/code/run_report.py  # Activity 2 figures and results
+python docs/exercises/mlp/code/run_report.py         # Activity 3 figures and results
 ```

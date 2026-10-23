@@ -6,5 +6,6 @@ One folder per activity, matching the exercise slugs under `docs/exercises/`:
 |---|---|
 | [`data/`](data/) | 1 — Data preparation and analysis |
 | [`perceptron/`](perceptron/) | 2 — Perceptron |
+| [`MLP/`](MLP/) | 3 — Multi-Layer Perceptron |
 
 Each folder has its own README with the notebook list and the run instructions.

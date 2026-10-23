@@ -73,3 +73,6 @@ nav:
       - '2 - Perceptron':
           - Report: exercises/perceptron/index.md
           - Code: exercises/perceptron/code.md
+      - '3 - MLP':
+          - Report: exercises/mlp/index.md
+          - Code: exercises/mlp/code.md
