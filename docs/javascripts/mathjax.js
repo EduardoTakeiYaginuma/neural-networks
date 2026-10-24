@@ -1,5 +1,9 @@
 window.MathJax = {
+  // \boldsymbol lives in an optional extension; without this it renders as
+  // literal red text instead of a bold vector.
+  loader: { load: ["[tex]/boldsymbol"] },
   tex: {
+    packages: { "[+]": ["boldsymbol"] },
     inlineMath: [["\\(", "\\)"]],
     displayMath: [["\\[", "\\]"]],
     processEscapes: true,
